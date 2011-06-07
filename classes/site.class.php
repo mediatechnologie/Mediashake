@@ -1,28 +1,25 @@
 <?php
-
-	class Site
+class Site
+{
+	
+	private $page;
+	
+	public function __construct()
 	{
-		
-		private $page;
-		
-		public function __construct()
+		if(!empty($_GET['page']))
 		{
-			if(!empty($_GET['page']))
-			{
-				$this->page = $_GET['page'];
-			}
-			else
-			{
-				$this->page = 'Home';
-			}
+			$this->page = $_GET['page'];
 		}
-		
-		public function invoke()
+		else
 		{
-			$title = $this->page.' | Mediashake';
-			require_once('html/main.html');
+			$this->page = 'Home';
 		}
-		
 	}
-
-?>
+	
+	public function invoke()
+	{
+		$title = $this->page.' | Mediashake';
+		require_once('html/home.php');
+	}
+	
+}
