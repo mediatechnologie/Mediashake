@@ -1,0 +1,161 @@
+<?php
+
+$id = stripslashes($_GET['id']);
+$url = (!empty($_SERVER['HTTPS'])) ? "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] : "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+
+if ($result = $this->db->query("SELECT * FROM `work` WHERE `id` = '$id' LIMIT 0,1"))
+{
+	
+	while ($row = $result->fetch_assoc())
+	{
+	
+		$filename = $row['filename'];
+		$title = urldecode($row['title']);
+		$description = urldecode($row['description']);
+		$rating = $row['rating'];
+		$type = $row['type'];
+	}
+
+}
+
+			
+	$file = 'images/users/'.$_SESSION['user']['id'].'.jpg';
+
+	if(file_exists($file))
+	{
+		$user_image = $_SESSION['user']['id'];
+	}
+	else
+	{
+		$user_image = 'noavatar';
+	}
+
+?>
+<script>
+	
+	$(function(){
+		
+		$("#addcomment textarea").TextAreaExpander();
+		
+		$('#addcomment input').click(function(){
+			
+			var comment = $('#addcomment textarea').val();
+			comment.replace("\'","%27")
+			comment = encodeURIComponent(comment);
+			$.ajax({
+					url: 'jsi.php',
+					type: 'POST',
+					data: {action: 'comment', work: <?php echo $_GET['id']; ?>, comment: comment},
+					async: false,
+					cache: false,
+					success: function(data){
+						$('#comments').prepend('\
+						<li>\
+							<img src="images/users/<?php echo $user_image; ?>.jpg"/>\
+							<p class="author"><?php echo $_SESSION['user']['firstname'].' '.$_SESSION['user']['lastname']; ?></p>\
+							' + decodeURIComponent(comment) + '\
+						</li>\
+						');
+						$('#addcomment textarea').val('');
+					}
+				});
+			
+		});
+		
+	});
+	
+</script>
+<div id="column2-m">
+	<div class="box">
+		<div class="title"><?php echo $title; ?></div>
+		<?php
+		switch($type)
+		{
+			case 0:
+				echo '<img src="uploads/'.$filename.'" width="748"/>';
+				break;
+			case 2:
+				$video = explode(':', $filename);
+				$service = $video[0];
+				$video_id = $video[1];
+				switch($service)
+				{
+					case 'youtube':
+						echo '<object width="750" height="500"><param name="movie" value="http://www.youtube.com/v/'.$video_id.'?version=3&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/'.$video_id.'?version=3&amp;hl=en_US" type="application/x-shockwave-flash" width="750" height="500" allowscriptaccess="always" allowfullscreen="true"></embed></object>';
+						break;
+					
+					case 'vimeo':
+						echo '<iframe src="http://player.vimeo.com/video/'.$video_id.'?title=0&amp;byline=0&amp;portrait=0" width="750" height="500" frameborder="0"></iframe>';
+						break;
+				}
+				break;
+		}
+		?>
+	</div>
+	<?php checklogin(); ?>
+	<div class="box nopadding">
+		<div class="title">Comments</div>
+		<div id="addcomment">
+			<img src="images/users/<?php echo $user_image; ?>.jpg"/>
+			<textarea></textarea>
+			<input type="submit" value="Comment" />
+		</div>
+		<ul id="comments">
+			<?php
+			$Work = new Work;
+			$comments = $Work->showComments();
+			echo $comments;
+			?>
+			<!--
+			<li>
+				<img src="images/users/2.jpg"/>
+				<p class="author">Farid el Nasire</p>
+				Comments here comment here Comments here comment here Comments here comment here Comments here comment here Comments here comment here Comments here comment here Comments here comment here 
+			</li>
+			<li>
+				Comments here
+			</li>
+			<li>
+				Comments here
+			</li>
+			<li>
+				Comments here
+			</li>
+			<li>
+				Comments here
+			</li>
+			<li>
+				Comments here
+			</li>
+			<li>
+				Comments here
+			</li>
+			<li>
+				Comments here
+			</li>
+			<li>
+				Comments here
+			</li>-->
+		</ul>
+	</div>
+</div>
+<div id="column3-s">
+	<div class="box">
+		<div class="title">Description</div>
+		<?php echo $description; ?>		
+	</div>
+	<div class="box">
+		<div class="title">Rate (<?php echo $rating; ?>)</div>
+		<ul class="rate">
+			<li id="1"></li>
+			<li id="2"></li>
+			<li id="3"></li>
+			<li id="4"></li>
+			<li id="5"></li>
+		</ul>
+	</div>
+	<div class="box">
+		<div class="title">Share</div>
+		<a href="http://twitter.com/share" class="twitter-share-button" data-url="<?php echo $url; ?>" data-count="horizontal" data-text="<?php echo $title; ?>">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>		
+	</div>
+</div>
