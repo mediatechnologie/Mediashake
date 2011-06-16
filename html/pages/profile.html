@@ -1,0 +1,109 @@
+<?php
+
+	$user_id = 1;
+
+?>
+<div id="column1-s">
+	<div class="box nopadding">
+		<div class="title"><?php echo $_SESSION['user']['firstname'].' '.$_SESSION['user']['lastname']; ?></div>
+		<img src="images/users/<?php echo $_SESSION['user']['id']; ?>.jpg" width="198"/>
+	</div>
+</div>
+<div id="column2-s">
+	<div class="box" id="status-update">
+		<div class="title">Uploads</div>
+		<?php
+		
+			$Work = new Work;
+			$parameters = array(
+				'max'	=>	30,
+				'user'	=>	$user_id
+			);
+			echo $Work->showWork($parameters);
+		
+		?>
+		<!--<div class="title">What's on your mind?</div>
+		<form>
+			<input type="text" name="status"/>
+			<input type="submit" value="Share"/>
+		</form>
+		<ol id="updates">
+			<li>
+				<img src="images/users/alf.jpg"/>
+				<p class="name">Alf Harald Brøndbo</p>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+				</p>
+			</li>
+			<li>
+				<img src="images/users/alf.jpg"/>
+				<p class="name">Alf Harald Brøndbo</p>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+				</p>
+			</li>
+			<li>
+				<img src="images/users/alf.jpg"/>
+				<p class="name">Alf Harald Brøndbo</p>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+				</p>
+			</li>
+			<li>
+				<img src="images/users/alf.jpg"/>
+				<p class="name">Alf Harald Brøndbo</p>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+				</p>
+			</li>
+			<li>
+				<img src="images/users/alf.jpg"/>
+				<p class="name">Alf Harald Brøndbo</p>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+				</p>
+			</li>
+		</ol>
+		-->
+	</div>
+</div>
+<div id="column3-s">
+	<div class="box nopadding">
+		<div class="title">Fans (5)</div>
+		<ul class="fans">
+			<li>
+				<img src="images/users/alf.jpg"/>
+			</li>
+			<li>
+				<img src="images/users/marvin.jpg"/>
+			</li>
+			<li>
+				<img src="images/users/michaela.jpg"/>
+			</li>
+			<li>
+				<img src="images/users/michal.jpg"/>
+			</li>
+			<li>
+				<img src="images/users/robert.jpg"/>
+			</li>
+		</ul>
+		<!--
+		<ul class="fans nopadding">
+			<li>
+				<img src="images/users/alf.jpg"/> Alf Harald Brøndbo
+			</li>
+			<li>
+				<img src="images/users/marvin.jpg"/> Marvin van Kalsbeek
+			</li>
+			<li>
+				<img src="images/users/michaela.jpg"/> Michaela Bejdová
+			</li>
+			<li>
+				<img src="images/users/michal.jpg"/> Michal Bober
+			</li>
+			<li>
+				<img src="images/users/robert.jpg"/> Robert Ronquillo
+			</li>
+		</ul>-->
+	</div>
+</div>
