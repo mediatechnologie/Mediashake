@@ -1,0 +1,4 @@
+- Different types of upload screens for upload box
+- Uploading
+- Fetching uploads from database function
+- 
