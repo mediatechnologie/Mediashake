@@ -198,6 +198,20 @@
 			
 		}
 		
+		private function getname($id)
+		{
+			
+			if ($result = $this->db->query("SELECT * FROM `accounts` WHERE `id` = '$id' LIMIT 0,1"))
+			{
+				while ($row = $result->fetch_assoc())
+				{
+					return $row['firstname'].' '.$row['lastname'];
+				}
+			}
+			
+			//return 'Farid el Nasire';
+		}
+		
 		public function showComments()
 		{
 			$id = stripslashes($_GET['id']);
@@ -222,7 +236,7 @@
 					$return .= '
 					<li>
 						<img src="images/users/'.$user_image.'.jpg"/>
-						<p class="author">'.getname($row['author']).'</p>
+						<p class="author">'.$this->getname($row['author']).'</p>
 						'.$row['comment'].'
 					</li>
 					'."\n";

@@ -266,6 +266,7 @@ table
 		background-color: #fcfcfc;
 		border: solid 1px #d8d8d8;
 		padding: 35px 5px 5px 5px;
+		overflow: hidden;
 	}
 	
 		.box .title
