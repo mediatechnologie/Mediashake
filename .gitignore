@@ -1,5 +1,2 @@
 *.komodoproject
-Thumbs.db
-.DS_Store
-includes/config.php
-.project
+*.project
