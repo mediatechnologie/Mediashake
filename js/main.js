@@ -27,11 +27,7 @@ $(document).ready(function(){
 		alert('test');
 	})
 	
-});
-
-
-/* Moved from main.html */
-$(document).ready(function(){
+	/* */
 		
 	// Navigation
 		$('#navigation #upload').click(function(){
