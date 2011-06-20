@@ -1,8 +1,5 @@
 $(document).ready(function(){
 	
-	// Init
-	$('#register-form').hide();
-	
 	// Login form
 	var login_visible = false;
 	$('#navigation .login').click(function(){
