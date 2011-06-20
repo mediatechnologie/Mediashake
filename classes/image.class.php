@@ -1,5 +1,4 @@
 <?php
-	
 	class SimpleImage
 	{
 	   
@@ -74,5 +73,3 @@
 	   }
 	   
 	}
-
-?>

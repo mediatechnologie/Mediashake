@@ -1,5 +1,4 @@
 <?php
-
 	class Content extends Site
 	{
 		
@@ -18,5 +17,3 @@
 		}
 		
 	}
-
-?>

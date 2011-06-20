@@ -11,26 +11,20 @@
 	// Establish database connection
 	require('includes/config.php');
 	require('classes/database.class.php');
-	$database = new Database;
-	$db = $database->db;
+	$db = new Database;
 
-
-		function getname($id)
+	function getname($id)
+	{
+		if ($result = $db->query("SELECT * FROM `accounts` WHERE `id` = '$id' LIMIT 0,1"))
 		{
-			
-			$database = new Database;
-			$db = $database->db;
-			
-			if ($result = $db->query("SELECT * FROM `accounts` WHERE `id` = '$id' LIMIT 0,1"))
+			while ($row = $result->fetch_assoc())
 			{
-				while ($row = $result->fetch_assoc())
-				{
-					return $row['firstname'].' '.$row['lastname'];
-				}
+				return $row['firstname'].' '.$row['lastname'];
 			}
-			
-			//return 'Farid el Nasire';
 		}
+		
+		//return 'Farid el Nasire';
+	}
 
 	
 	switch($_GET['action'])

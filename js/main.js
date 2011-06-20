@@ -93,7 +93,7 @@ $(document).ready(function(){
 							$('#login_form .loading-indicator').css('visibility', 'hidden');
 							
 							if(data == 'OK')
-								window.location.replace('<?php echo SITE_URL; ?>');
+								window.location.replace('index.php');
 							else if(data == 'WRONG')
 								alert('Incorrect username or password!');
 							else
@@ -128,19 +128,4 @@ $(document).ready(function(){
 				$(this).parent().children().removeClass('active');
 				
 			});
-	
-			$('.rate li').click(function(){
-				var rating = $(this).attr('id');
-				$.ajax({
-					url: 'jsi.php',
-					type: 'POST',
-					data: {action: 'rate', work: '<?php echo $_GET['id']; ?>', rating: rating},
-					async: false,
-					cache: false,
-					success: function(data){
-						alert('You have rated this work ' + rating + ' stars!');
-					}
-				});
-			});
-			
 		});

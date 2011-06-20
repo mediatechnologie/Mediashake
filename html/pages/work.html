@@ -61,7 +61,20 @@ if ($result = $this->db->query("SELECT * FROM `work` WHERE `id` = '$id' LIMIT 0,
 				});
 			
 		});
-		
+
+		$('.rate li').click(function(){
+			var rating = $(this).attr('id');
+			$.ajax({
+				url: 'jsi.php',
+				type: 'POST',
+				data: {action: 'rate', work: '<?php echo $_GET['id']; ?>', rating: rating},
+				async: false,
+				cache: false,
+				success: function(data){
+					alert('You have rated this work ' + rating + ' stars!');
+				}
+			});
+		});
 	});
 	
 </script>
