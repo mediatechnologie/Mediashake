@@ -1,13 +1,13 @@
 <?php
-class Site extends Database
+class Site
 {
-	
+	protected $db;
+		
 	protected $page;
 	
 	public function __construct()
 	{
-		
-		parent::__construct();
+		$this->db = new Database;
 		
 		// Determine which page should be served
 		

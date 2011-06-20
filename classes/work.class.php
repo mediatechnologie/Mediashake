@@ -1,13 +1,11 @@
 <?php
-
-	class Work extends Database
+	class Work
 	{
+		protected $db;
 		
 		public function __construct()
 		{
-			
-			parent::__construct();
-			
+			$this->db = new Database;
 		}
 		
 		public function newVideo()
@@ -165,8 +163,8 @@
 			
 			$query = "SELECT * FROM `work`".$user." ORDER BY `".$order."` DESC LIMIT 0,".$max;
 
-			if ($result = $this->db->query($query)) {
-			
+			if ($result = $this->db->query($query))
+			{
 				while ($row = $result->fetch_assoc()) {
 					
 					if(!file_exists('uploads/'.$row['filename']))
@@ -237,5 +235,3 @@
 		}
 		
 	}
-
-?>
