@@ -5,9 +5,6 @@
 	require('includes/config.php');
 	require('includes/functions.php');
 	require('autoload.php');
-
-	// require('includes/functions.php');
-	// require('jsi.php');
 	
 	$Site = new Site;
 	$Site->invoke();
