@@ -89,6 +89,13 @@
 			}
 		}
 		
+		public function newWebsite()
+		{
+			
+			
+			
+		}
+		
 		public function fetchWork($parameters = null)
 		{
 			

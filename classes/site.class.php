@@ -39,6 +39,11 @@
 					$Work = new Work;
 					$Work->newVideo();
 					break;
+				
+				case 'newwebsite':
+					$Work = new Work;
+					$Work->newWebsite();
+					break;
 			}
 			
 		}
