@@ -38,6 +38,11 @@ class Site extends Database
 				$Work = new Work;
 				$Work->newVideo();
 				break;
+			
+			case 'newwebsite':
+				$Work = new Work;
+				$Work->newWebsite();
+				break;
 		}
 		
 	}
@@ -58,22 +63,7 @@ class Site extends Database
 				//'messages'	=>	'Messages',
 				'upload'	=>	'Upload',
 				'account'	=>	'Account'
-				
-<<<<<<< HEAD
-				case 'newvideo':
-					$Work = new Work;
-					$Work->newVideo();
-					break;
-				
-				case 'newwebsite':
-					$Work = new Work;
-					$Work->newWebsite();
-					break;
-			}
-=======
 			);
->>>>>>> 53cd3557d76237744a6f19e160cd8b346b3bea2b
-			
 		}
 		else
 		{
@@ -129,7 +119,6 @@ class Site extends Database
 		
 		// Foot
 		require('html/foot.html');
-		require_once('html/home.php');
 	}
 
 }
