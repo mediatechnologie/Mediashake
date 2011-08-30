@@ -1,2 +1,5 @@
 *.komodoproject
 *.project
+uploads/*
+includes/config.php
+.gitignore
