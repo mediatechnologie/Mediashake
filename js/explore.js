@@ -74,7 +74,7 @@ $(document).ready(function(){
 			}
 			else
 			{
-			window.location.replace("http://localhost/ms/index.php?p=explore");
+			window.location.replace("index.php?p=explore");
 			}
 			
 			

@@ -1,0 +1,61 @@
+	<div id="curtain">
+		<div class="box nopadding" id="uploadbox">
+			<div class="title">Upload</div>
+			<div>
+				<ul id="type">
+					<li id="image">Image</li>
+					<li id="video">Video</li>
+					<li id="website">Website</li>
+					<li id="documents">Documents</li>
+				</ul>
+			</div>
+			<ul id="upload">
+				<li id="image">
+					<form action="?action=upload" method="post" enctype="multipart/form-data">
+						<input type="file" name="userfile" id="userfile"><hr/>
+						Title:<br/>
+						<input type="text" name="title"/><br/>
+						Description:<br/>
+						<textarea cols="" rows="" name="description"></textarea><br/>
+						<input type="submit" value="Upload"/>
+						<input type="button" value="Cancel" class="cancel"/>
+					</form>
+				</li>
+				<li id="video">
+					<form action="?action=newvideo" method="post">
+						URL to Youtube or Vimeo video:
+						<input type="text" name="url"/><hr/>
+						Title:<br/>
+						<input type="text" name="title"/><br/>
+						Description:<br/>
+						<textarea cols="" rows="" name="description"></textarea><br/>
+						<input type="submit" value="Save"/>
+						<input type="button" value="Cancel" class="cancel"/>
+					</form>
+				</li>
+				<li id="website">
+					<form action="?action=newwebsite" method="post">
+						URL:<br/>
+						<input type="text" name="url"/><br/>
+						Title:<br/>
+						<input type="text" name="title"/><br/>
+						Description:<br/>
+						<textarea cols="" rows="" name="description"></textarea><br/>
+						<input type="submit" value="Upload"/>
+						<input type="button" value="Cancel" class="cancel"/>
+					</form>
+				</li>
+				<li id="documents">
+					<form action="?action=upload" method="post" enctype="multipart/form-data">
+						<input type="file" name="userfile" id="userfile"><hr/>
+						Title:<br/>
+						<input type="text" name="title"/><br/>
+						Description:<br/>
+						<textarea cols="" rows="" name="description"></textarea><br/>
+						<input type="submit" value="Upload"/>
+						<input type="button" value="Cancel" class="cancel"/>
+					</form>
+				</li>
+			</ul>
+		</div>
+	</div>
