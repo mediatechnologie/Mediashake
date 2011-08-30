@@ -39,8 +39,13 @@ class Site
 			$this->page = $page;
 		}
 		
+		if(!empty($_GET['action']))
+			$action = $_GET['action'];
+		else
+			$action = null;
+		
 		// Check if an action should be performed
-		switch($_GET['action'])
+		switch($action)
 		{
 			case 'logout':
 				session_destroy();
@@ -102,9 +107,10 @@ class Site
 		// Check if we should return the navigation as a <ul>...
 		if($ul == true)
 		{
+			$ul_navigation = '';
 			foreach($navigation as $link => $name)
 			{
-				$ul_navigation = $ul_navigation.'<li><a href="?p='.$link.'" id="'.$link.'">'.$name.'</a></li>'."\n";
+				$ul_navigation .= '<li><a href="?p='.$link.'" id="'.$link.'">'.$name.'</a></li>'."\n";
 			}
 			
 			return '<ul id="navigation">'.$ul_navigation.'</ul>';

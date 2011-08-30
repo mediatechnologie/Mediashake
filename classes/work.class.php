@@ -137,7 +137,6 @@ class Work
 	
 	public function showWork($parameters = null)
 	{
-		
 		// Parameters
 		
 			// Max items
@@ -155,16 +154,15 @@ class Work
 					break;
 			}
 			
-			//
+			$user = '';
 			if(!empty($parameters['user']))
 				$user = " WHERE `owner` = '".$parameters['user']."'";
 			
-			
-		
 		$query = "SELECT * FROM `work`".$user." ORDER BY `".$order."` DESC LIMIT 0,".$max;
 
 		if ($result = $this->db->query($query))
 		{
+			$return = '';
 			while ($row = $result->fetch_assoc()) {
 				
 				if(!file_exists('uploads/'.$row['filename']))
@@ -216,9 +214,11 @@ class Work
 		
 		$query = "SELECT * FROM `comments` WHERE `work` = '$id' ORDER BY `date` DESC";
 
-		if ($result = $this->db->query($query)) {
-		
-			while ($row = $result->fetch_assoc()) {
+		if ($result = $this->db->query($query))
+		{
+			$return = '';
+			while ($row = $result->fetch_assoc())
+			{
 				
 				$file = 'images/users/'.$_SESSION['user']['id'].'.jpg';
 		
