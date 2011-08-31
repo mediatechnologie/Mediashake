@@ -78,7 +78,7 @@ class Site
 	 */
 	protected function navigation($ul = false)
 	{
-		if($_SESSION['user'])
+		if(!empty($_SESSION['user']))
 		{
 			// Navigation if a user is logged in
 			$navigation = array(
