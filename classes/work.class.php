@@ -107,7 +107,11 @@ class Work
 				$title = urldecode($row['title']);
 				if(!file_exists('uploads/'.$row['filename']))
 				{
-					$row['filename'] = 'video.jpg';
+					$filename = 'images/video.jpg';
+				}
+				else
+				{
+					$filename = 'uploads/'.$row['filename'];
 				}
 				
 				$title = str_replace("'", "&#39;", $title);
@@ -121,7 +125,7 @@ class Work
 					$row['type'],
 					$row['owner'],
 					$title,
-					$row['filename'],
+					$filename,
 					$row['description'],
 					$row['date'],
 					$row['school']
@@ -167,13 +171,17 @@ class Work
 				
 				if(!file_exists('uploads/'.$row['filename']))
 				{
-					$row['filename'] = 'video.jpg';
+					$filename = 'images/video.jpg';
+				}
+				else
+				{
+					$filename = 'uploads/'.$row['filename'];
 				}
 				
 				$return .= '
 				<li>
 					<a href="?p=work&id='.$row['id'].'">
-						<img src="uploads/'.$row['filename'].'"/>
+						<img src="'.$filename.'"/>
 					</a>
 				</li>
 				'."\n";

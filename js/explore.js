@@ -19,7 +19,7 @@ $(document).ready(function(){
 				$('#most-popular').append('\
 					<li>\
 						<a href="?p=work&id=' + item[0] + '">\
-							<img src="uploads/' + item[4] + '"/>\
+							<img src="' + item[4] + '"/>\
 							<p>' + item[3] + '</p>\
 						</a>\
 					</li>');
