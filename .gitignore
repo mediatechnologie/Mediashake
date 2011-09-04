@@ -1,5 +1,11 @@
+.gitignore
 *.komodoproject
 *.project
-uploads/*
+
 includes/config.php
-.gitignore
+
+html/cache/*
+html/compile/*
+
+uploads/*
+

@@ -7,21 +7,32 @@
 **  Last modified: lun 2010-12-06, 15:19.01 CET
 **/
 
-$classes_directory  =  dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'classes';
+define('PS', PATH_SEPARATOR);
+define('DS', DIRECTORY_SEPARATOR);
+define('ABSPATH', dirname(__FILE__).DS);
+
+$classes_directory  =  ABSPATH . 'classes';
+$includes_directory = ABSPATH . 'includes';
 set_include_path(
 	$classes_directory .
-	PATH_SEPARATOR .
+	PS .
+	$includes_directory .
+	PS .
+	SMARTY_SYSPLUGINS_DIR .
+	PS .
+	SMARTY_PLUGINS_DIR .
+	PS .
 	get_include_path()
 );
-unset( $classes_directory );
+unset( $classes_directory, $includes_directory );
 spl_autoload_extensions( '.php, .inc.php, .class.php' );
 spl_autoload_register();
 
 function linux_namespaces_autoload ( $class_name )
     {
         /* use if you need to lowercase first char *
-        $class_name  =  implode( DIRECTORY_SEPARATOR , array_map( 'lcfirst' , explode( '\\' , $class_name ) ) );/* else just use the following : */
-        $class_name  =  implode( DIRECTORY_SEPARATOR , explode( '\\' , $class_name ) );
+        $class_name  =  implode( DS , array_map( 'lcfirst' , explode( '\\' , $class_name ) ) );/* else just use the following : */
+        $class_name  =  implode( DS , explode( '\\' , $class_name ) );
         static $extensions  =  array();
         if ( empty($extensions ) )
             {
@@ -30,11 +41,11 @@ function linux_namespaces_autoload ( $class_name )
         static $include_paths  =  array();
         if ( empty( $include_paths ) )
             {
-                $include_paths  =  explode( PATH_SEPARATOR , get_include_path() );
+                $include_paths  =  explode( PS , get_include_path() );
             }
         foreach ( $include_paths as $path )
             {
-                $path .=  ( DIRECTORY_SEPARATOR !== $path[ strlen( $path ) - 1 ] ) ? DIRECTORY_SEPARATOR : '';
+                $path .=  ( DS !== $path[ strlen( $path ) - 1 ] ) ? DS : '';
                 foreach ( $extensions as $extension )
                     {
                         $file  =  $path . $class_name . $extension;
@@ -45,6 +56,6 @@ function linux_namespaces_autoload ( $class_name )
                             }
                     }
             }
-        throw new Exception( _( 'class ' . $class_name . ' could not be found.' ) );
+        throw new Exception( 'class ' . $class_name . ' could not be found.' );
     }
 spl_autoload_register( 'linux_namespaces_autoload' , TRUE );
