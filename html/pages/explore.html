@@ -1,79 +1,57 @@
-<script type="text/javascript" src="js/explore.js"></script>
-<script>
-<?php
+{include 'head.html'}
 
-	// Fetch work as JSON
-	$Work = new Work;
-	echo 'var work = jQuery.parseJSON(\''.$Work->fetchWork().'\')';
-	
-?>
-</script>
+<!-- 
+<script type="text/javascript" src="js/explore.js"></script>
+ -->
 
 <div id="column2-m">
 	<div class="box">
 		<div class="title">Explore</div>
 		<ul id="most-popular">
+			{foreach $popular as $work}
+			<li>
+			<a href="?p=work&id={$work.id}">
+				<img src="{$work.filename}"/>
+				{$work.title}
+			</a>
+			</li>
+			{/foreach}
 		</ul>
 	</div>
 </div>
 <div id="column3-s">
-	<!--
-	<div class="box">
-		<div class="title">Keyword</div>
-		<form>
-			<input type="text" name="keyword"/>
-			<input type="submit" value="Search"/>
-		</form>
-	</div>-->
-	<div class="box">
-		<div class="title">Schools</div>
-		<ul id="schools">
-			<li value="1">
-				<img src="images/flags/nl.png"/>
-				Mediacollege Amsterdam
-			</li>
-			<li value="2">
-				<img src="images/flags/sk.png"/>
-				Filmov&aacute; &#353;kola
-			</li>
-			<li value="3">
-				<img src="images/flags/no.png"/>
-				Olav Duun
-			</li>
-			<li class="reset" value="reset">
-				<img src="images/flags/eu.png"/>
-				All Schools
-			</li>
-		</ul>
-	</div>
+
+	{include 'widgets/schools.html'}
 	
 	<!--
 <div class="box">
-		<div class="title">Result type</div>
-		<ul>
-			<li>Images</li>
-			<li>Videos</li>
-			<li>Websites</li>
-			<li>Documents</li>
-		</ul>
-	</div>
-	<div class="box">
-		<div class="title">Sort by</div>
-		<ul>
-			<li>Relevance</li>
-			<li>Upload date</li>
-			<li>View count</li>
-			<li>Rating</li>
-		</ul>
-	</div>
-	<div class="box">
-		<div class="title">Upload date</div>
-		<ul>
-			<li>Anytime</li>
-			<li>Today</li>
-			<li>This week</li>
-			<li>This month</li>
-		</ul>
-	</div>
+	<div class="title">Result type</div>
+	<ul>
+		<li>Images</li>
+		<li>Videos</li>
+		<li>Websites</li>
+		<li>Documents</li>
+	</ul>
+</div>
+<div class="box">
+	<div class="title">Sort by</div>
+	<ul>
+		<li>Relevance</li>
+		<li>Upload date</li>
+		<li>View count</li>
+		<li>Rating</li>
+	</ul>
+</div>
+<div class="box">
+	<div class="title">Upload date</div>
+	<ul>
+		<li>Anytime</li>
+		<li>Today</li>
+		<li>This week</li>
+		<li>This month</li>
+	</ul>
+</div>
 -->
 </div>
+
+{include 'foot.html'}

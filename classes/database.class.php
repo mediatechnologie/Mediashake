@@ -1,13 +1,16 @@
 <?php
-class Database extends mysqli
+class Database extends PDO
 {
 	public function __construct()
 	{
-		parent::__construct(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-		if (mysqli_connect_error())
+		try
 		{
-			die('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
+			$dsn = 'mysql:dbname='.DB_NAME.';host='.DB_HOST;
+			parent::__construct( $dsn , DB_USER , DB_PASSWORD );
+		}
+		catch(PDOException $e)
+		{
+			echo 'Could not connect to the database.';
 			exit;
 		}
 	}

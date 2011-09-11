@@ -1,0 +1,16 @@
+<div class="box">
+	<div class="title">Schools</div>
+	<ul id="schools">
+		{foreach $schools as $sc}
+		<li value="{$sc@iteration}">
+			<img src="images/flags/{$sc.country_code}.png"/>
+			{$sc.name}
+		</li>
+		{/foreach}
+		
+		<li class="reset" value="reset">
+			<img src="images/flags/eu.png"/>
+			All Schools
+		</li>
+	</ul>
+</div>

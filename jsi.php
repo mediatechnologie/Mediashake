@@ -17,7 +17,7 @@ function getname($id)
 {
 	if ($result = $db->query("SELECT * FROM `accounts` WHERE `id` = '$id' LIMIT 0,1"))
 	{
-		while ($row = $result->fetch_assoc())
+		while ($row = $result->fetch(PDO::FETCH_ASSOC))
 		{
 			return $row['firstname'].' '.$row['lastname'];
 		}
@@ -41,7 +41,7 @@ switch($get_action)
 		
 		if ($result = $db->query("SELECT * FROM `accounts` WHERE `username` = '$username' LIMIT 0,1"))
 		{
-			while ($row = $result->fetch_assoc())
+			while ($row = $result->fetch(PDO::FETCH_ASSOC))
 			{
 				
 				$_SESSION['user']['id'] = $row['id'];
@@ -63,7 +63,7 @@ switch($get_action)
 				}
 			}
 		}
-					header('location: index.php');
+			header('location: index.php');
 		
 		break;
 	
@@ -84,9 +84,9 @@ switch($post_action)
 		if ($result = $db->query("SELECT * FROM `accounts` WHERE `username` = '$username' AND `password` = '$password' LIMIT 0,1"))
 		{
 		
-			if($result->num_rows == 1)
+			if($result->rowCount() == 1)
 			{
-				while ($row = $result->fetch_assoc())
+				while ($row = $result->fetch(PDO::FETCH_ASSOC))
 				{
 					
 					$_SESSION['user']['id'] = $row['id'];
@@ -109,7 +109,7 @@ switch($post_action)
 				//echo $username.' -- '.$_POST['username'].' :: '.$_POST['password'];
 			}
 		
-			$result->close();
+			unset($result);
 		}
 		
 		break;
@@ -132,7 +132,7 @@ switch($post_action)
 
 		if ($result = $db->query($query)) {
 		
-			while ($row = $result->fetch_assoc()) {
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$rating = $row['rating'];
 				$votes = $row['votes'];
 				$total_rating = $rating*$votes;

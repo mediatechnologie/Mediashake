@@ -17,8 +17,10 @@ class View extends Smarty
 		$this->config_dir = ABSPATH.'html/config';
 		$this->cache_dir = ABSPATH.'html/cache';
 		
+		// Shut up PHP's warning about the timezone
 		date_default_timezone_set('Europe/Amsterdam');
 		
+		// Set up some general info
 		$general_info = array(
 			'name' => SITE_NAME,
 			'url' => SITE_URL

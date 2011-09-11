@@ -2,8 +2,8 @@
 
 	function checklogin()
 	{
-		if(!$_SESSION['user'])
-			die('You have to be logged in to comment or rate work.');
+		if(empty($_SESSION['user']))
+			echo('You have to be logged in to comment or rate work.');
 	}
 	
 ?>

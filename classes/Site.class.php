@@ -4,13 +4,17 @@
  */
 class Site
 {
+	protected $db;
 	/**
-	 * db
-	 * the database object
+	 * view
+	 * 
 	 * @var mixed
 	 * @access protected
 	 */
-	protected $db;
+	protected $view;
+	
+	protected $wf;
+	
 	/**
 	 * page
 	 * the page type that should be served
@@ -22,6 +26,16 @@ class Site
 	protected $page = 'home';
 	
 	/**
+	 * action
+	 * 
+	 * (default value: '')
+	 * 
+	 * @var string
+	 * @access protected
+	 */
+	protected $action = '';
+	
+	/**
 	 * __construct function.
 	 * 
 	 * @access public
@@ -29,8 +43,9 @@ class Site
 	 */
 	public function __construct()
 	{
-		// Set up the database 
 		$this->db = new Database;
+		$this->view = new View;
+		$this->wf = new WorkFactory;
 		
 		// Determine which page should be served
 		if(!empty($_GET['p']))
@@ -40,53 +55,27 @@ class Site
 		}
 		
 		if(!empty($_GET['action']))
-			$action = $_GET['action'];
+			$this->action = $_GET['action'];
 		else
-			$action = null;
-		
-		// Check if an action should be performed
-		switch($action)
-		{
-			case 'logout':
-				session_destroy();
-				header('location: index.php');
-				break;
-			
-			case 'upload':
-				$Work = new Work;
-				$Work->upload();
-				break;
-			
-			case 'newvideo':
-				$Work = new Work;
-				$Work->newVideo();
-				break;
-			
-			case 'newwebsite':
-				$Work = new Work;
-				$Work->newWebsite();
-				break;
-		}
+			$this->action = null;
 	}
 	
 	/**
-	 * navigation function.
-	 * 
+	 * getNavigation function.
+	 * return navigation items as an assoc. array
 	 * @access protected
-	 * @param mixed $ul (default: null)
-	 * @return void
+	 * @return array
 	 */
-	protected function navigation($ul = false)
+	protected function getNavigation()
 	{
 		if(!empty($_SESSION['user']))
 		{
 			// Navigation if a user is logged in
 			$navigation = array(
-				
 				'home'		=>	'Home',
-				// 'profile'	=>	'Profile', ///
+				'profile'	=>	'Profile',
 				'explore'	=>	'Explore',
-				// 'messages'	=>	'Messages', ///
+				'messages'	=>	'Messages',
 				'upload'	=>	'Upload',
 				'account'	=>	'Account'
 			);
@@ -95,78 +84,140 @@ class Site
 		{
 			// Navigation if a user isn't logged in
 			$navigation = array(
-				
 				'home'		=>	'Home',
 				'explore'	=>	'Explore',
 				'register'	=>	'Register',
 				'login'		=>	'Login'
-				
 			);
 		}
 		
-		// Check if we should return the navigation as a <ul>...
-		if($ul == true)
+		return $navigation;
+	}
+	
+	/**
+	 * getSchools function.
+	 * return the schools as an assoc. array
+	 * @access protected
+	 * @return array
+	 */
+	protected function getSchools()
+	{
+		$sql = 'SELECT * FROM schools ORDER BY name';
+		$statement = $this->db->query($sql);
+		
+		$schools = $statement->fetchAll(PDO::FETCH_ASSOC);
+		
+		return $schools;
+	}
+	
+	/**
+	 * assignContent function.
+	 * select page content to get
+	 * and assign to the view object
+	 * @access protected
+	 * @return void
+	 */
+	protected function assignContent()
+	{
+		switch($this->page)
 		{
-			$ul_navigation = '';
-			foreach($navigation as $link => $name)
+			case 'work':
 			{
-				$ul_navigation .= '<li><a href="?p='.$link.'" id="'.$link.'">'.$name.'</a></li>'."\n";
+				$wk = $this->wf->fetch(
+					array('id' => $_GET['id'],'output_type' => 'array')
+				);
+				$this->view->assign('work', $wk);
+				break;
 			}
-			
-			return '<ul id="navigation">'.$ul_navigation.'</ul>';
-		}
-		// ...Or return it as an array
-		else
-		{
-			return $navigation;
+			case 'explore':
+			{
+				$popular_work = $this->wf->fetchAll(array('sort_by' => 'views', 'limit' => 15));
+				
+				$this->view->assign('popular', $popular_work);
+				$this->view->assign('schools', $this->getSchools());
+				break;
+			}
+			case 'home':
+			{
+				$recent_work = $this->wf->fetchAll(array('sort_by' => 'date', 'limit' => 5));
+				$popular_work = $this->wf->fetchAll(array('sort_by' => 'views', 'limit' => 10));
+				
+				$this->view->assign('recent', $recent_work);
+				$this->view->assign('popular', $popular_work);
+				
+				$this->view->assign('schools', $this->getSchools());
+				
+				break;
+			}
 		}
 	}
 	
 	/**
 	 * invoke function.
 	 * 
-	 * Get the necessary data
-	 * and send it to the output buffer
+	 * return the html output of the system
 	 * 
 	 * @access public
 	 * @return void
 	 */
 	public function invoke()
 	{
+		// Set the array for page info and contents
+		$page = array();
+		
 		try
 		{
 			// Head
-			$title = ucfirst($this->page);
-			$navigation = $this->navigation($ul = true);
+			$page['title'] = ucfirst($this->page);
 			
 			// Body
 			$file = 'html/pages/'.$this->page.'.html';
+			
+			// See what page content we should get
+			// and assign it.
+			$this->assignContent();
 			
 			// Check if the template file exists,
 			// If it doesn't, throw a 404 exception
 			if(!file_exists($file))
 			{
-				throw new SiteException(404);
+				throw new Exception(404);
 			}
 		}
-		catch(SiteException $e)
+		catch(Exception $e)
 		{
 			if($e->getMessage() == 404)
 			{
+				header('Status: 404 Not Found');
 				$file = 'html/pages/404.html';
-				$title = 'Page not found.';
+				$page['title'] = 'Page not found';
+			}
+			else
+			{
+				$file = 'html/pages/error.html';
+				$page['title'] = 'Error';
+				$page['content'] = $e->getMessage();
 			}
 		}
 		
-		// Get the header
-		require('html/head.html');
+		// Assign the navigation to the view
+		$this->view->assign('nav', $this->getNavigation());
+		// Assign page info/contents to the view
+		$this->view->assign('page', $page);
 		
-		require($file);
+		// Output
+		try
+		{
+			$output = $this->view->fetch($file);
+		}
+		catch(SmartyException $e)
+		{
+			$output = 'Something is wrong with the template! '.
+				$e->getMessage();
+		}
 		
-		// Get the footer
-		require('html/foot.html');
+		return $output;
 	}
-
 }
 
 /**
