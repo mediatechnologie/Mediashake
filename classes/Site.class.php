@@ -13,6 +13,8 @@ class Site
 	 */
 	protected $view;
 	
+	protected $router;
+	
 	protected $wf;
 	
 	/**
@@ -45,7 +47,10 @@ class Site
 	{
 		$this->db = new Database;
 		$this->view = new View;
+		$this->router = new Router;
 		$this->wf = new WorkFactory;
+		
+		//$this->router->addRoute('home');
 		
 		// Determine which page should be served
 		if(!empty($_GET['p']))
@@ -144,7 +149,6 @@ class Site
 				
 				$this->view->assign('recent', $recent_work);
 				$this->view->assign('popular', $popular_work);
-				
 				$this->view->assign('schools', $this->getSchools());
 				
 				break;

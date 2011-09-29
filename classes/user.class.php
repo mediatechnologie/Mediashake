@@ -1,4 +1,7 @@
 <?php
+/**
+ * User class.
+ */
 class User
 {
 	public $username;
