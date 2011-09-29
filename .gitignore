@@ -1,6 +1,7 @@
 .gitignore
 *.komodoproject
 *.project
+*.settings
 
 includes/config.php
 
