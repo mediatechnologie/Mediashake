@@ -1,4 +1,8 @@
 <?php
+/*
+ * jsi.php
+ * Javascript endpoint.
+ */
 session_start();
 
 /*
