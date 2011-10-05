@@ -4,17 +4,28 @@
  */
 class Site
 {
+	/**
+	 * db
+	 * Database object
+	 * @var mixed
+	 * @access protected
+	 */
 	protected $db;
+	
 	/**
 	 * view
-	 * 
+	 * View object
 	 * @var mixed
 	 * @access protected
 	 */
 	protected $view;
 	
-	protected $router;
-	
+	/**
+	 * wf
+	 * WorkFactory object
+	 * @var mixed
+	 * @access protected
+	 */
 	protected $wf;
 	
 	/**
@@ -45,12 +56,10 @@ class Site
 	 */
 	public function __construct()
 	{
+		// Set up some objects
 		$this->db = new Database;
 		$this->view = new View;
-		$this->router = new Router;
 		$this->wf = new WorkFactory;
-		
-		//$this->router->addRoute('home');
 		
 		// Determine which page should be served
 		if(!empty($_GET['p']))
@@ -59,6 +68,7 @@ class Site
 			$this->page = $page;
 		}
 		
+		// Check if there's an action to do
 		if(!empty($_GET['action']))
 			$this->action = $_GET['action'];
 		else
