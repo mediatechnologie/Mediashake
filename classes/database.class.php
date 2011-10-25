@@ -10,7 +10,7 @@ class Database extends PDO
 		}
 		catch(PDOException $e)
 		{
-			echo 'Could not connect to the database.';
+			echo 'Could not connect to the database. '.$e->getMessage();
 			exit;
 		}
 	}
