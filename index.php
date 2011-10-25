@@ -1,9 +1,14 @@
 <?php
+
 	session_start();
 	
 	require('includes/config.php');
-	require('includes/functions.php');
-	require('autoload.php');
+
+	require('classes/Site.class.php');
+	require('classes/Database.class.php');
+	require('classes/User.class.php');
 	
-	$shake = new Site;
-	echo $shake->invoke();
+	$site = new Site;
+	$site->invoke();
+
+?>

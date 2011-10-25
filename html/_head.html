@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="http://localhost/ecmm/" />
+<title>European Cultural Mixed Media</title>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="js/masonry.js"></script>
+<script src="js/interaction.js"></script>
+</head>
+<body>
+	<header id="header">
+		<div class="wrap">
+			<a href="showcase">
+				<img src="images/logo.png" alt="ECMM - European Cultural Mixed Media" id="logo"/>
+			</a>
+			<nav id="navigation">
+				<?php echo $navigation; ?>
+				<ol id="categories">
+					<li class="active">All</li>
+					<li>Static</li>
+					<li>Motion</li>
+					<li>Interactive</li>
+					<li>Culture</li>
+				</ol>
+			</nav>
+			<form id="search_form">
+				<?php echo $user['firstname']; ?>
+				<input type="text" placeholder="Search..."/>
+				<a href="action/logout">X</a>
+			</form>
+		</div>
+	</header>
+	<section id="content">
+		<div class="wrap">

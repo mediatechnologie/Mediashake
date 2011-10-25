@@ -1,0 +1,19 @@
+<div class="profile-left-column">
+		<div class="box nopadding">
+				<img src="images/users/<?php echo $user['id']; ?>_220x250.jpg"/>
+				<ul>
+						<li><h3><?php echo $user['firstname'].' '.$user['lastname']; ?></h3></li>
+						<li><?php echo $user['location']; ?></li>
+				</ul>
+		</div>
+</div>
+<div class="profile-middle-column">
+		<div class="box">
+				test
+		</div>
+</div>
+<div class="profile-right-column">
+		<div class="box">
+				<?php print_r($user); ?>
+		</div>
+</div>
