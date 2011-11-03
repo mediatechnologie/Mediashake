@@ -21,12 +21,22 @@ class User
 	public $joined;
 	public $lastlogin;
 	
+	protected $db;
+	
 	public function __construct()
 	{
-	
+		$this->db = new Database;
 	}
 	
+	public function login()
+	{
+		
+	}
 	
+	public function logout()
+	{
+		
+	}
 	
 	public function __destruct()
 	{

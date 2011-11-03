@@ -1,7 +1,7 @@
 <?php
 /**
 **  @file autoloader.inc.php
-**  @author imme�mosol (programmer dot willfris at nl) 
+**  @author immeëmosol (programmer dot willfris at nl) 
 **  @date 2010-12-06
 **  Created: lun 2010-12-06, 14:05.13 CET
 **  Last modified: lun 2010-12-06, 15:19.01 CET
@@ -9,7 +9,9 @@
 
 define('PS', PATH_SEPARATOR);
 define('DS', DIRECTORY_SEPARATOR);
-define('ABSPATH', dirname(__FILE__).DS);
+
+if(!defined('ABSPATH'))
+	define('ABSPATH', dirname(__FILE__).DS);
 
 $classes_directory  =  ABSPATH . 'classes';
 $includes_directory = ABSPATH . 'includes';
@@ -31,8 +33,8 @@ spl_autoload_register();
 function linux_namespaces_autoload ( $class_name )
     {
         /* use if you need to lowercase first char *
-        $class_name  =  implode( DS , array_map( 'lcfirst' , explode( '\\' , $class_name ) ) );/* else just use the following : */
-        $class_name  =  implode( DS , explode( '\\' , $class_name ) );
+        $class_name  =  implode( DS , array_map( 'lcfirst' , explode( '¥¥' , $class_name ) ) );/* else just use the following : */
+        $class_name  =  implode( DS , explode( '¥¥' , $class_name ) );
         static $extensions  =  array();
         if ( empty($extensions ) )
             {

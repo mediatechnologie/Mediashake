@@ -36,7 +36,7 @@ class Site
 	 * @var string
 	 * @access protected
 	 */
-	protected $page = 'home';
+	protected $page = 'landing';
 	
 	/**
 	 * action
@@ -47,6 +47,9 @@ class Site
 	 * @access protected
 	 */
 	protected $action = '';
+	
+	protected $file = '';
+	protected $path = array();
 	
 	/**
 	 * __construct function.
@@ -166,6 +169,80 @@ class Site
 		}
 	}
 	
+	private function determinePage()
+	{
+		// Get path and save it as array
+		$path = str_replace('/ecmm/', '', $_SERVER['REQUEST_URI']);
+		$path = explode('/',$path);
+			
+		// Check if an action should be performed first
+		if($path[0] == 'action')
+		{
+			$this->performAction($path[1]);
+		}
+		elseif($_SESSION['user'] == '')
+		{
+			// User isn't logged in, go to landing page
+			$this->file = 'landing';
+		}
+		else
+		{
+			// User is logged in, see what page should be served
+			switch($path[0])
+			{
+				case '':
+					$this->file = 'showcase';
+					break;
+				case 'showcase':
+					$this->file = 'showcase';
+					break;
+				case 'people':
+					$this->file = 'people';
+					break;
+				case 'user':
+					$this->file = 'profile';
+					break;
+				case 'converse':
+					$this->file = 'converse';
+					break;
+				case 'settings':
+					$this->file = 'settings';
+					break;
+				case 'upload':
+					$this->file = 'upload';
+					break;
+			}
+			
+			// If no page has been set, the page wasn't allowed, so show 404 error
+			if(!isset($this->file))
+				$this->file = '_404';
+				
+			// Make path a class property for later use
+			$this->path = $path;
+		}
+	}
+	
+	private function performAction($action)
+	{
+		switch($action)
+		{
+			case 'login':
+				$user = new User;
+				if( $user->login($_POST['username'], $_POST['password']) )
+					return true;
+				else
+					return false;
+				break;
+			case 'logout':
+				$user = new User;
+				if( $user->logout() )
+					return true;
+				else
+					return false;
+				break;
+		}
+	}
+	
 	/**
 	 * invoke function.
 	 * 
@@ -202,7 +279,7 @@ class Site
 		{
 			if($e->getMessage() == 404)
 			{
-				header('Status: 404 Not Found');
+				header('HTTP/1.1 404 Not Found');
 				$file = 'html/pages/404.html';
 				$page['title'] = 'Page not found';
 			}

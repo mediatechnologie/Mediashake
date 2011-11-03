@@ -1,40 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 
-<html lang="en">
+<html>
+
 <head>
+	<base href="{$general.url}" />
 	<title>{$general.name} | {$page.title|default: 'Untitled'}</title>
 	
-	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
-	<link rel="stylesheet" type="text/css" href="css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 	
-	<link rel="shortcut icon" href="images/favicon.ico"/>
-	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="js/jquery.textarea-expander.js"></script>  
-	<script type="text/javascript" src="js/main.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script src="js/masonry.js"></script>
+	<script src="js/interaction.js"></script>
 </head>
 
 <body>
-	{include 'curtain.html'}
-	<div id="wrap">
-		<a href="index.php">
-			<img src="images/logo.png" alt="Logo" id="logo"/>
-		</a>
-		
-		<ul id="navigation">
-		{foreach $nav as $link => $name}
-			<li><a href="?p={$link}" id="{$link}">{$name}</a></li>
-		{/foreach}
-		</ul>
-		
-		<div id="loginbox">
-			<form action="login.php" method="post" id="login_form">
-				<input type="text" name="username" id="username"/>
-				<input type="password" name="password" id="password"/>
-				<input type="submit" value="Login"/>
-				<img src="images/loginload.gif" class="loading-indicator"/>
+	<header id="header">
+		<div class="wrap">
+			<a href="showcase">
+				<img src="images/logo.png" alt="{$general.name}" id="logo"/>
+			</a>
+			<nav id="navigation">
+				<ol id="top-navigation">
+				{foreach $nav as $link => $name}
+					<li><a href="/{$link}" id="link-{$link}">{$name}</a></li>
+				{/foreach}
+				</ol>
+				
+				<ol id="categories">
+					<li class="active">All</li>
+					<li>Static</li>
+					<li>Motion</li>
+					<li>Interactive</li>
+					<li>Culture</li>
+				</ol>
+			</nav>
+			<form id="search_form">
+				<?php echo $user['firstname']; ?>
+				<input type="text" placeholder="Search..."/>
+				<a href="action/logout">X</a>
 			</form>
 		</div>
-		<div id="accountbox">
-			<a href="?action=logout">Logout</a>
-		</div>
+	</header>
+	<section id="content">
+		<div class="wrap">
