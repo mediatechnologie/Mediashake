@@ -80,23 +80,17 @@ class Site
 		{
 			// Navigation if a user is logged in
 			$navigation = array(
-				'home'		=>	'Home',
-				'profile'	=>	'Profile',
-				'explore'	=>	'Explore',
-				'messages'	=>	'Messages',
-				'upload'	=>	'Upload',
-				'account'	=>	'Account'
+				'showcase'	=>	'Showcase',
+				'people'			=>	'People',
+				#'groups'			=>	'Groups',
+				'converse'	=>	'Converse',
+				#'collaborate'	=>	'Collaborate',
+				#'settings'	=>	'Settings',
+				'upload'			=>	'Upload',
 			);
 		}
 		else
 		{
-			// Navigation if a user isn't logged in
-			$navigation = array(
-				'home'		=>	'Home',
-				'explore'	=>	'Explore',
-				'register'	=>	'Register',
-				'login'		=>	'Login'
-			);
 		}
 		
 		return $navigation;
