@@ -65,17 +65,7 @@ class Site
 		$this->wf = new WorkFactory;
 		
 		// Determine which page should be served
-		if(!empty($_GET['p']))
-		{
-			$page = $_GET['p'];
-			$this->page = $page;
-		}
-		
-		// Check if there's an action to do
-		if(!empty($_GET['action']))
-			$this->action = $_GET['action'];
-		else
-			$this->action = null;
+		$this->determinePage();
 	}
 	
 	/**
@@ -172,7 +162,7 @@ class Site
 	private function determinePage()
 	{
 		// Get path and save it as array
-		$path = str_replace('/ecmm/', '', $_SERVER['REQUEST_URI']);
+		$path = str_replace('/mediashake/', '', $_SERVER['REQUEST_URI']);
 		$path = explode('/',$path);
 			
 		// Check if an action should be performed first
@@ -183,7 +173,7 @@ class Site
 		elseif($_SESSION['user'] == '')
 		{
 			// User isn't logged in, go to landing page
-			$this->file = 'landing';
+			$this->page = 'landing';
 		}
 		else
 		{
@@ -191,31 +181,31 @@ class Site
 			switch($path[0])
 			{
 				case '':
-					$this->file = 'showcase';
+					$this->page = 'showcase';
 					break;
 				case 'showcase':
-					$this->file = 'showcase';
+					$this->page = 'showcase';
 					break;
 				case 'people':
-					$this->file = 'people';
+					$this->page = 'people';
 					break;
 				case 'user':
-					$this->file = 'profile';
+					$this->page = 'profile';
 					break;
 				case 'converse':
-					$this->file = 'converse';
+					$this->page = 'converse';
 					break;
 				case 'settings':
-					$this->file = 'settings';
+					$this->page = 'settings';
 					break;
 				case 'upload':
-					$this->file = 'upload';
+					$this->page = 'upload';
 					break;
 			}
 			
 			// If no page has been set, the page wasn't allowed, so show 404 error
-			if(!isset($this->file))
-				$this->file = '_404';
+			if(!isset($this->page))
+				$this->page = '_404';
 				
 			// Make path a class property for later use
 			$this->path = $path;

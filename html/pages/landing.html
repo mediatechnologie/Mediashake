@@ -1,4 +1,24 @@
-{include 'head.html'}
+<!DOCTYPE html>
+<html>
+<head>
+	<base href="{$general.url}" />
+	<title>{$general.name} | {$page.title|default: 'Untitled'}</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script src="js/masonry.js"></script>
+	<script src="js/interaction.js"></script>
+</head>
+<body id="landing">
+	<header id="header">
+		<div class="wrap">
+			<img src="images/logo.png" alt="ECMM - European Cultural Mixed Media" id="logo"/>
+			<form id="login_form" method="post" action="action/login">
+				<input type="text" name="username" placeholder="Username"/>
+				<input type="password" name="password" placeholder="Password"/>
+				<input type="submit" value="Login"/>
+			</form>
+		</div>
+	</header>
 
 	<section id="content">
 		<div class="wrap">
