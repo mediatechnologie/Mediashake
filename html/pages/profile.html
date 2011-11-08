@@ -2,22 +2,64 @@
 
 <div class="profile-left-column">
 		<div class="box nopadding">
-				<img src="images/users/<?php echo $user['id']; ?>_220x250.jpg"/>
+				<img src="images/users/1_220x250.jpg"/>
 				<ul>
-						<li><h3><?php echo $user['firstname'].' '.$user['lastname']; ?></h3></li>
-						<li><?php echo $user['location']; ?></li>
+						<li><h3>$Firstname $Lastname</h3></li>
+						<li>$School</li>
+						<li>$location</li>
 				</ul>
 		</div>
 </div>
 <div class="profile-middle-column">
-		<div class="box">
-				test
-		</div>
+		<ol id="list" class="masonry">
+				<li>
+					<div class="thumbnail-shadow"></div>
+					<img src="uploads/6.jpg"/>
+					<h3 class="title"><a href="work/12345/title-comes-here">6Slovakia, fuck yeah!</a></h3>
+					<div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac mauris ut metus sodales consequat nec in lectus. Maecenas dui nulla, accumsan eget vestibulum quis, pretium nec diam. Vestibulum et nulla libero, ac eleifend mi. Curabitur in velit elit, sed ultricies nibh. Integer metus sem.</div>
+					<div class="meta">
+						<div class="icon time">Oct 3, 2011</div>
+						<div class="icon like">12</div>
+					</div>
+				</li>
+				<li>
+					<div class="thumbnail-shadow"></div>
+					<img src="uploads/7.jpg"/>
+					<h3 class="title">7Me gusta le lieveheersbeestje!</h3>
+					<div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac mauris ut metus sodales consequat nec in lectus. Maecenas dui nulla, accumsan eget vestibulum quis, pretium nec diam. Vestibulum et nulla libero, ac eleifend mi. Curabitur in velit elit, sed ultricies nibh. Integer metus sem, gravida a pulvinar nec, sodales et tortor.</div>
+					<div class="meta">
+						<div class="icon time">Oct 3, 2011</div>
+						<div class="icon like">12</div>
+					</div>
+				<li>
+					<div class="thumbnail-shadow"></div>
+					<img src="uploads/8.jpg"/>
+					<h3 class="title">8Slovakia, fuck yeah!</h3>
+					<div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac mauris ut metus sodales consequat nec in lectus. Maecenas dui nulla, accumsan eget vestibulum quis, pretium nec diam. Vestibulum et nulla libero, ac eleifend mi. Curabitur in velit elit, sed ultricies nibh. Integer metus sem.</div>
+					<div class="meta">
+						<div class="icon time">Oct 3, 2011</div>
+						<div class="icon like">12</div>
+					</div>
+				<li>
+					<div class="thumbnail-shadow"></div>
+					<img src="uploads/9.jpg"/>
+					<h3 class="title">9Beautiful sunset at home</h3>
+					<div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac mauris ut metus sodales consequat nec in lectus. Maecenas dui nulla, accumsan eget vestibulum quis, pretium nec diam. Vestibulum et nulla libero, ac eleifend mi. Curabitur in velit elit, sed ultricies nibh. Integer metus sem.</div>
+					<div class="meta">
+						<div class="icon time">Oct 3, 2011</div>
+						<div class="icon like">37</div>
+					</div>
+				</li>
+				<li>
+					<div class="thumbnail-shadow"></div>
+					<img src="uploads/12.jpg"/>
+					<h3 class="title">12Slovakia, fuck yeah!</h3>
+					<div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac mauris ut metus sodales consequat nec in lectus.</div>
+					<div class="meta">
+						<div class="icon time">Oct 3, 2011</div>
+						<div class="icon like">12</div>
+					</div>
+				</li>
+			</ol>
 </div>
-<div class="profile-right-column">
-		<div class="box">
-				<?php print_r($user); ?>
-		</div>
-</div>
-
 {include 'foot.html'}

@@ -22,6 +22,7 @@ p{
 img{
 		margin: 0px;
 		padding: 0px;
+		border: none;
 }
 
 a{
@@ -168,6 +169,7 @@ a{
 				box-shadow: 0px 0px 1px 1px #1f1f1f;
 				color: #e6e6e6;
 				padding: 5px;
+				width: 100%;
 		}
 		
 		#list{
@@ -182,6 +184,7 @@ a{
 						box-shadow: 0px 0px 1px 1px #1f1f1f;
 						color: #e6e6e6;
 						width: 220px;
+						min-height: 140px;
 				}
 				
 						#list li .thumbnail-shadow{
@@ -301,13 +304,13 @@ a{
 		float: left;
 }
 
-.landing-left-column{
+#left-column{
 		width: 535px;
 		height: 600px;
 		float: left;
 }
 
-.landing-right-column{
+#right-column{
 		width: 380px;
 		height: 600px;
 		float: right;
@@ -315,22 +318,22 @@ a{
 		color: #ccc;
 }
 
-		.landing-right-column h2{
+		#right-column h2{
 				margin: 0px;
 				font-weight: normal;
 		}
 		
-		.landing-right-column h3{
+		#right-column h3{
 				margin: 5px 0px 0px 0px;
 				font-weight: normal;
 		}
 		
-		.landing-right-column hr{
+		#right-column hr{
 				border: none;
 				border-top: solid 1px #777;
 		}
 		
-		.landing-right-column input{
+		#right-column input{
 				padding: 3px;
 				outline: none;
 		}
@@ -362,17 +365,20 @@ a{
 		
 				.profile-left-column h3{
 						margin: 0px;
-						padding: 5px 5px 5px 5px;
 						font-weight: normal;
 						font-size: 14px;
 						color: #DDD;
+				}
+				
+				.profile-left-column li{
+						padding: 5px 5px 5px 5px;
 				}
 				
 		.profile-middle-column{
 				position: absolute;
 				top: 0px;
 				left: 240px;
-				right: 250px;
+				right: 00px;
 		}
 				
 				.profile-middle-column .box{
@@ -382,4 +388,52 @@ a{
 		.profile-right-column{
 				width: 220px;
 				float: right;
+		}
+		
+		/* PAGE: UPLOAD */
+		#upload .box{
+				padding: 10px;
+		}
+		
+		#upload h2{
+				font-weight: normal;
+				margin: 0px 0px 10px 0px;
+		}
+		
+		#upload input[type="text"]{
+				width: 520px;
+				line-height: 30px;
+				margin-top: 10px;
+				background-color: #222;
+				border: solid 1px #111;
+				padding: 5px;
+				outline: none;
+				color: #EEE;
+		}
+		
+		#upload textarea{
+				width: 520px;
+				min-width: 520px;
+				max-width: 520px;
+				min-height: 300px;
+				margin-top: 10px;
+				background-color: #222;
+				border: solid 1px #111;
+				padding: 5px;
+				outline: none;
+				color: #EEE;
+				font-family: inherit;
+		}
+		
+		#upload_options > *{
+				display: none;
+		}
+		
+		#upload input[type="submit"]{
+				margin-top: 5px;
+				border: solid 1px #0a0a0a;
+				background-color: #111;
+				color: #aaa;
+				padding: 5px 15px 5px 15px;
+				cursor: pointer;
 		}

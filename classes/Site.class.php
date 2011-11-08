@@ -83,10 +83,11 @@ class Site
 				'showcase'	=>	'Showcase',
 				'people'			=>	'People',
 				#'groups'			=>	'Groups',
-				'converse'	=>	'Converse',
+				#'converse'	=>	'Converse',
 				#'collaborate'	=>	'Collaborate',
 				#'settings'	=>	'Settings',
 				'upload'			=>	'Upload',
+				'action/logout'			=>	'Logout'
 			);
 		}
 		else
@@ -194,6 +195,9 @@ class Site
 					break;
 				case 'upload':
 					$this->page = 'upload';
+					break;
+				case 'work':
+					$this->page = 'work';
 					break;
 			}
 			
