@@ -38,6 +38,8 @@ class WorkFactory
 		extract($args);
 		
 		$sql = 'SELECT * FROM work INNER JOIN accounts ON work.owner = accounts.id WHERE work.'.$type.'='.$id.' LIMIT 1';
+		echo $sql;
+		
 		$st = $this->db->query($sql);
 		
 		switch($output_type)
