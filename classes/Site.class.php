@@ -162,7 +162,6 @@ class Site
 		$path = explode('/', $path);
 		$path = array_filter($path);
 		$path = array_values($path);
-		var_dump($path);
 		
 		if(empty($path[0]))
 			$path[0] = '';
@@ -285,8 +284,16 @@ class Site
 		
 		// Assign the navigation to the view
 		$this->view->assign('nav', $this->getNavigation());
+		
 		// Assign page info/contents to the view
 		$this->view->assign('page', $page);
+		
+		// Assign user data to the view
+		if(array_key_exists('user', $_SESSION))
+			$this->view->assign('user', $_SESSION['user']);
+		else
+			$this->view->assign('user', array());
+		
 		
 		// Output
 		try
