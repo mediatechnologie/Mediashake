@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
 	<base href="{$general.url}" />
@@ -16,26 +16,14 @@
 <body>
 	<header id="header">
 		<div class="wrap">
-			<a href="showcase">
+			<a href="/showcase">
 				<img src="/images/logo.png" alt="{$general.name} Logo" id="logo"/>
 			</a>
-			<nav id="navigation">
-				<ol id="top-navigation">
-				{foreach $nav as $link => $name}
-					<li><a href="{$link}" id="link-{$link}">{$name}</a></li>
-				{/foreach}
-				</ol>
-				
-				<ol id="categories">
-					<li class="active">All</li>
-					<li>Static</li>
-					<li>Motion</li>
-					<li>Interactive</li>
-					<li>Culture</li>
-				</ol>
-			</nav>
+			
+			{include 'navigation.html'}
+			
 			<form id="search_form">
-				<?php echo $user['firstname']; ?>
+				{* $user.name *}
 				<input type="text" placeholder="Search..."/>
 				<a href="action/logout">X</a>
 			</form>
