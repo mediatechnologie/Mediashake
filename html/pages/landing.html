@@ -3,20 +3,17 @@
 <head>
 	<base href="{$general.url}" />
 	<title>{$general.name} | {$page.title|default: 'Untitled'}</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-	<script src="js/masonry.js"></script>
-	<script src="js/interaction.js"></script>
+	<script src="/js/masonry.js"></script>
+	<script src="/js/interaction.js"></script>
 </head>
 <body id="landing">
 	<header id="header">
 		<div class="wrap">
-			<img src="images/logo.png" alt="ECMM - European Cultural Mixed Media" id="logo"/>
-			<form id="login_form" method="post" action="action/login">
-				<input type="text" name="username" placeholder="Username"/>
-				<input type="password" name="password" placeholder="Password"/>
-				<input type="submit" value="Login"/>
-			</form>
+			<img src="/images/logo.png" alt="{$general.name} Logo" id="logo"/>
+			
+			{include 'loginform.html'}
 		</div>
 	</header>
 
@@ -46,7 +43,7 @@
 				<h2>Ahoj stranger!</h2>
 				<h3>You currently need to be invited for an account.</h3>
 				<hr/>
-				<p>Are you in the DaVinci exchange programme and are you a student at Mediacollege Amsterdam, Filmová škola or Olav Duun? You don't need an invitation and you can get an account by filling in this form.</p>
+				<p>Are you in the DaVinci exchange programme and are you a student at Mediacollege Amsterdam, Filmov&aacute; &#352;kola or Olav Duun? You don't need an invitation and you can get an account by filling in this form.</p>
 				<hr/>
 				<form>
 					<table>

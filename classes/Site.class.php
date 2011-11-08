@@ -76,6 +76,8 @@ class Site
 	 */
 	protected function getNavigation()
 	{
+		$navigation = array();
+		
 		if(!empty($_SESSION['user']))
 		{
 			// Navigation if a user is logged in
@@ -158,14 +160,19 @@ class Site
 	{
 		// Get path and save it as array
 		$path = str_replace('/mediashake/', '', $_SERVER['REQUEST_URI']);
-		$path = explode('/',$path);
-			
+		$path = explode('/', $path);
+		$path = array_filter($path);
+		$path = array_values($path);
+		
+		if(empty($path[0]))
+			$path[0] = '';
+		
 		// Check if an action should be performed first
 		if($path[0] == 'action')
 		{
 			$this->performAction($path[1]);
 		}
-		elseif($_SESSION['user'] == '')
+		elseif(empty($_SESSION['user']))
 		{
 			// User isn't logged in, go to landing page
 			$this->page = 'landing';
@@ -281,8 +288,16 @@ class Site
 		
 		// Assign the navigation to the view
 		$this->view->assign('nav', $this->getNavigation());
+		
 		// Assign page info/contents to the view
 		$this->view->assign('page', $page);
+		
+		// Assign user data to the view
+		if(array_key_exists('user', $_SESSION))
+			$this->view->assign('user', $_SESSION['user']);
+		else
+			$this->view->assign('user', array());
+		
 		
 		// Output
 		try
