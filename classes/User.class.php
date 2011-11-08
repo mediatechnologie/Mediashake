@@ -21,6 +21,12 @@ class User
 	public $joined;
 	public $lastlogin;
 	
+	/**
+	 * db
+	 * Database handle.
+	 * @var mixed
+	 * @access protected
+	 */
 	protected $db;
 	
 	public function __construct()
@@ -30,30 +36,30 @@ class User
 	
 	public function login($username, $password)
 	{
+		
 		$password = md5($password);
-		if($result = $this->db->query("SELECT * FROM `accounts` WHERE `username` = '$username' AND `password` = '$password' LIMIT 0,1"))
+		
+		$sql = 'SELECT * FROM `accounts` WHERE `username` = :un AND `password` = :pw LIMIT 1';
+		$st = $this->db->prepare($sql);
+		$st->bindParam(':un', $username);
+		$st->bindParam(':pw', $password);
+		
+		if($st->execute())
 		{
-			if($result->rowCount() == 1)
-			{
-				while ($row = $result->fetch(PDO::FETCH_ASSOC))
-				{
-					$_SESSION['user']['id'] = $row['id'];
-					$_SESSION['user']['firstname'] = $row['firstname'];
-					$_SESSION['user']['lastname'] = $row['lastname'];
-					$_SESSION['user']['gender'] = $row['gender'];
-					$_SESSION['user']['location'] = $row['location'];
-					$_SESSION['user']['school'] = $row['school'];
-					$_SESSION['user']['facebook'] = $row['facebook'];
-					$_SESSION['user']['twitter'] = $row['twitter'];
-					$_SESSION['user']['youtube'] = $row['youtube'];
-					$_SESSION['user']['vimeo'] = $row['vimeo'];
-				}
-				header('Location: '.SITE_URL.'/showcase');
-			}
-			else
-			{
-				header('Location: '.SITE_URL.'/error/login');
-			}
+			$userdata = $st->fetch(PDO::FETCH_ASSOC);
+			
+			// Remove the password from the userdata, just to be on the safe side.
+			unset($userdata['password']);
+			$_SESSION['user'] = $userdata;
+			
+			header('Location: '.SITE_URL.'/showcase');
+			return true;
+		}
+		else
+		{
+			throw new Exception('Login failed.');
+			header('Location: '.SITE_URL.'/error/login');
+			return false;
 		}
 	}
 	
@@ -61,6 +67,11 @@ class User
 	{
 		session_destroy();
 		header('Location: '.SITE_URL);
+	}
+	
+	public function __clone()
+	{
+	
 	}
 	
 	public function __destruct()
