@@ -76,6 +76,8 @@ class Site
 	 */
 	protected function getNavigation()
 	{
+		$navigation = array();
+		
 		if(!empty($_SESSION['user']))
 		{
 			// Navigation if a user is logged in
@@ -164,7 +166,7 @@ class Site
 		{
 			$this->performAction($path[1]);
 		}
-		elseif($_SESSION['user'] == '')
+		elseif(empty($_SESSION['user']))
 		{
 			// User isn't logged in, go to landing page
 			$this->page = 'landing';
