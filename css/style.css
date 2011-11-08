@@ -441,3 +441,22 @@ a{
 				padding: 5px 15px 5px 15px;
 				cursor: pointer;
 		}
+		
+		
+		/* PAGE: WORK */
+		#work-left-column{
+				width: 740px;
+				margin-right: 20px;
+				float: left;
+		}
+		
+		#work-right-column{
+				position: absolute;
+				right: 0px;
+				left: 760px;
+		}
+		
+		#work-right-column h2{
+				font-weight: normal;
+				margin: 0px;
+		}

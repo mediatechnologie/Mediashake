@@ -129,8 +129,9 @@ class Site
 			case 'work':
 			{
 				$wk = $this->wf->fetch(
-					array('id' => $this->path[1], 'output_type' => 'array')
+					array('id' => $this->path[1],'output_type' => 'array')
 				);
+				var_dump($wk);
 				$this->view->assign('work', $wk);
 				var_dump($wk);
 				break;
@@ -217,7 +218,7 @@ class Site
 			
 			// If no page has been set, the page wasn't allowed, so show 404 error
 			if(!isset($this->page))
-				$this->page = '_404';
+				$this->page = '404';
 				
 			// Make path a class property for later use
 			$this->path = $path;
