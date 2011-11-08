@@ -30,16 +30,24 @@ class WorkFactory
 			// The column for our WHERE clause
 			'type' => 'id',
 			// The identifier from that column we should select
-			'id' => null,
+			'id' => 1,
 			// What kind of data we should output
 			'output_type' => 'object',
 		);
 		$args = array_merge($defaults, $args);
 		extract($args);
 		
-		$sql = 'SELECT * FROM work INNER JOIN accounts ON work.owner = accounts.id WHERE work.'.$type.'='.$id.' LIMIT 1';
-		$st = $this->db->query($sql);
+		$sql = 'SELECT * FROM work INNER JOIN accounts ON work.owner = accounts.id WHERE work.'.$type.' = :id LIMIT 1';
+		$st = $this->db->prepare($sql);
+		//$st->bindParam(':type', $type);
+		$st->bindParam(':id', $id);
 		
+		if(! $st->execute())
+			//throw new Exception(404);
+		{
+			var_dump($st->errorInfo());
+			throw new Exception(404);
+		}
 		switch($output_type)
 		{
 			case 'object':
@@ -59,7 +67,7 @@ class WorkFactory
 				break;
 			}
 		}
-		var_dump($output);
+		
 		return $output;
 	}
 	

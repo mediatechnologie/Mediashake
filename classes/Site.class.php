@@ -31,7 +31,7 @@ class Site
 	/**
 	 * page
 	 * the page type that should be served
-	 * (default value: 'home')
+	 * (default value: 'landing')
 	 * 
 	 * @var string
 	 * @access protected
@@ -129,8 +129,15 @@ class Site
 			case 'work':
 			{
 				$wk = $this->wf->fetch(
-					array('id' => $_GET['id'],'output_type' => 'array')
+					array('id' => $this->path[1], 'output_type' => 'array')
 				);
+				$this->view->assign('work', $wk);
+				var_dump($wk);
+				break;
+			}
+			case 'showcase':
+			{
+				$wk = $this->wf->fetchAll();
 				$this->view->assign('work', $wk);
 				break;
 			}
