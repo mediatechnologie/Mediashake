@@ -186,7 +186,11 @@ a{
 						width: 220px;
 						min-height: 140px;
 				}
-				
+						
+						#list li img {
+							max-width: 100%;
+						}
+						
 						#list li .thumbnail-shadow{
 								position: absolute;
 								top: 0px;
