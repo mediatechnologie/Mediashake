@@ -159,8 +159,14 @@ class Site
 	{
 		// Get path and save it as array
 		$path = str_replace('/mediashake/', '', $_SERVER['REQUEST_URI']);
-		$path = explode('/',$path);
-			
+		$path = explode('/', $path);
+		$path = array_filter($path);
+		$path = array_values($path);
+		var_dump($path);
+		
+		if(empty($path[0]))
+			$path[0] = '';
+		
 		// Check if an action should be performed first
 		if($path[0] == 'action')
 		{

@@ -48,11 +48,11 @@ class User
 					$_SESSION['user']['youtube'] = $row['youtube'];
 					$_SESSION['user']['vimeo'] = $row['vimeo'];
 				}
-				header('Location: '.SITE_URL.'showcase');
+				header('Location: '.SITE_URL.'/showcase');
 			}
 			else
 			{
-				header('Location: '.SITE_URL.'error/login');
+				header('Location: '.SITE_URL.'/error/login');
 			}
 		}
 	}
