@@ -43,11 +43,10 @@ class WorkFactory
 		$st->bindParam(':id', $id);
 		
 		if(! $st->execute())
-			//throw new Exception(404);
 		{
-			var_dump($st->errorInfo());
 			throw new Exception(404);
 		}
+		
 		switch($output_type)
 		{
 			case 'object':
