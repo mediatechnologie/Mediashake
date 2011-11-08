@@ -19,7 +19,7 @@ $(function(){
 		
 	});
 	
-	$('#list li .thumbnail-shadow').html('<img src="images/enlarge.png"/>');
+/*	$('#list li .thumbnail-shadow').html('<img src="images/enlarge.png"/>');
 	
 	// Show preview button on hover
 	$('#list li').hover(function(){
@@ -36,4 +36,38 @@ $(function(){
 		alert(id);
 	});
 
+*/
+
+	// Upload
+	$('#upload #type input').click(function(){
+		var type = $(this).attr('value');
+		$('#upload #category').attr('value', type);
+		$('#upload #upload_options').children().hide();
+		$('#upload #upload_options #option_' + type).show();
+	});
+	
+	$('#upload form').submit(function(){
+		var category = $('#category').val()
+		var title = $('#title').attr('value');
+		var description = $('#description').val();
+		switch(category)
+		{
+			case 'image':
+				break;
+			case 'video':
+				var data = $('#video_url').attr('value');
+				break;
+			case 'website':
+				var data = $('#website_url').attr('value');
+				break;
+			case 'document':
+				break;
+		}
+		
+		if(category == 'null' || title == '' || description == '' || data == '')
+		{
+			alert('You haven\'t filled in everything!');
+			return false;
+		}
+	});
 });
