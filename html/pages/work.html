@@ -2,7 +2,7 @@
 
 <div id="work-left-column">
 		<div class="box nopadding">
-				<img src="uploads/1_740.jpg" alt="Description comes here"/>
+				<img src="/uploads/{$work.filename}" alt="Description comes here"/>
 		</div>
 		<div class="box">
 				<h2>Comments</h2>
@@ -11,8 +11,9 @@
 </div>
 <div id="work-right-column">
 		<div class="box">
-				<h2>Title comes right over here</h2>
-				<p>Description comes down here. Lorem ipsum doler and all the other crap.</p>
+				<h2><a href="/work/{$work.id}/">{$work.title}</a></h2>
+				<p><em>By <a href="">{$work.username}</a>, posted on <time>{$work.date|date_format}</time>.</em></p>
+				<p>{$work.description}</p>
 		</div>
 </div>
 {include 'foot.html'}
