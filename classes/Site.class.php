@@ -164,6 +164,12 @@ class Site
 		}
 	}
 	
+	/**
+	 * determinePage function.
+	 * Analyze the request URI and determine which page to get.
+	 * @access private
+	 * @return string
+	 */
 	private function determinePage()
 	{
 		// Get path and save it as array
