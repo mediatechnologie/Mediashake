@@ -4,8 +4,8 @@
 {foreach $work as $item}
 <li id="item_{$item@iteration}">
 	<div class="thumbnail-shadow"></div>
-	<a href="work/{$item.id}/title-comes-here"><img src="/{$item.filename}" class="thumbnail"/></a>
-	<h3 class="title"><a href="work/{$item.id}/title-comes-here">{$item.title}</a></h3>
+	<a href="work/{$item.id}/title-comes-here"><img src="uploads/{$item.id}_220x250.jpg" class="thumbnail"/></a>
+	<h3 class="title"><a href="work/{$item.id}/{$item.title}">{$item.title}</a></h3>
 	<div class="description">{$item.description}</div>
 	<div class="meta">
 		<time class="icon time">{$item.date}</time>

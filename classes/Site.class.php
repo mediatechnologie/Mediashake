@@ -131,9 +131,7 @@ class Site
 				$wk = $this->wf->fetch(
 					array('id' => $this->path[1],'output_type' => 'array')
 				);
-				var_dump($wk);
 				$this->view->assign('work', $wk);
-				var_dump($wk);
 				break;
 			}
 			case 'showcase':

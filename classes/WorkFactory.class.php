@@ -37,10 +37,11 @@ class WorkFactory
 		$args = array_merge($defaults, $args);
 		extract($args);
 		
-		$sql = 'SELECT * FROM work INNER JOIN accounts ON work.owner = accounts.id WHERE work.'.$type.' = :id LIMIT 1';
+		#$sql = 'SELECT * FROM work INNER JOIN accounts ON work.owner = accounts.id WHERE work.'.$type.' = :id LIMIT 1';
+		$sql = 'SELECT * FROM work WHERE '.$type.' = '.$id.' LIMIT 1';
 		$st = $this->db->prepare($sql);
 		//$st->bindParam(':type', $type);
-		$st->bindParam(':id', $id);
+		#$st->bindParam(':id', $id);
 		
 		if(! $st->execute())
 			//throw new Exception(404);
