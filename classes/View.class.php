@@ -28,5 +28,7 @@ class View extends Smarty
 		
 		// Assign the general/default info to the View object
 		$this->assign('general', $general_info);
+		
+		$this->registerPlugin('block', 't', 'gettext');
 	}
 }

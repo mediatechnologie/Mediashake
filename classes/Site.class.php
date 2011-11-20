@@ -82,14 +82,16 @@ class Site
 		{
 			// Navigation if a user is logged in
 			$navigation = array(
-				'showcase'	=>	'Showcase',
-				'people'			=>	'People',
-				#'groups'			=>	'Groups',
-				#'converse'	=>	'Converse',
-				#'collaborate'	=>	'Collaborate',
-				#'settings'	=>	'Settings',
-				'upload'			=>	'Upload',
-				'action/logout'			=>	'Logout'
+				'showcase'		=>	_( 'Showcase' ),
+				'people'		=>	_( 'People' ),
+				
+			//	'groups'		=>	_( 'Groups' ),
+			//	'converse'		=>	_( 'Converse' ),
+			//	'collaborate'	=>	_( 'Collaborate' ),
+			//	'settings'		=>	_( 'Settings' ),
+				
+				'upload'		=>	_( 'Upload' ),
+				'action/logout'	=>	_( 'Logout' )
 			);
 		}
 		else
@@ -284,12 +286,12 @@ class Site
 			{
 				header('HTTP/1.1 404 Not Found');
 				$file = 'html/pages/404.html';
-				$page['title'] = 'Page not found';
+				$page['title'] = _( 'Page not found' );
 			}
 			else
 			{
 				$file = 'html/pages/error.html';
-				$page['title'] = 'Error';
+				$page['title'] = _( 'Error' );
 				$page['content'] = $e->getMessage();
 			}
 		}
@@ -314,7 +316,7 @@ class Site
 		}
 		catch(SmartyException $e)
 		{
-			$output = 'Something is wrong with the template! '.
+			$output = _( 'Something is wrong with the template!' ) .' '.
 				$e->getMessage();
 		}
 		

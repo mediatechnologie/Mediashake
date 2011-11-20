@@ -23,6 +23,9 @@ define('SITE_NAME', 'Mediashake');
 // The root url of the site, without a trailing slash
 define('SITE_URL', 'http://mediashake');
 
+define('CHARSET', 'utf-8');
+define('DEFAULT_LOCALE', 'en_UK');
+
 // Smarty constants
 define('SMARTY_DIR', 'classes/');
 define('SMARTY_SYSPLUGINS_DIR', 'includes/smarty_sysplugins/');
