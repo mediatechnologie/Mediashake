@@ -21,22 +21,7 @@
 		<div class="wrap">
 			<div id="left-column">
 				<ul id="landing-showcase">
-					<li><img src="uploads/1.jpg"/></li>
-					<li><img src="uploads/2.jpg"/></li>
-					<li><img src="uploads/3.jpg"/></li>
-					<li><img src="uploads/4.jpg"/></li>
-					<li><img src="uploads/5.jpg"/></li>
-					<li><img src="uploads/6.jpg"/></li>
-					<li><img src="uploads/7.jpg"/></li>
-					<li><img src="uploads/8.jpg"/></li>
-					<li><img src="uploads/9.jpg"/></li>
-					<li><img src="uploads/10.jpg"/></li>
-					<li><img src="uploads/11.jpg"/></li>
-					<li><img src="uploads/12.jpg"/></li>
-					<li><img src="uploads/13.jpg"/></li>
-					<li><img src="uploads/14.jpg"/></li>
-					<li><img src="uploads/15.jpg"/></li>
-					<li><img src="uploads/5.jpg"/></li>
+					{foreach $work as $item}<li><img src="{$item.filename}"/></li>{/foreach}
 				</ul>
 			</div>
 			<div id="right-column">

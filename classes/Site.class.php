@@ -131,7 +131,9 @@ class Site
 				$wk = $this->wf->fetch(
 					array('id' => $this->path[1],'output_type' => 'array')
 				);
+				
 				$this->view->assign('work', $wk);
+				
 				break;
 			}
 			case 'showcase':
@@ -162,6 +164,12 @@ class Site
 		}
 	}
 	
+	/**
+	 * determinePage function.
+	 * Analyze the request URI and determine which page to get.
+	 * @access private
+	 * @return string
+	 */
 	private function determinePage()
 	{
 		// Get path and save it as array

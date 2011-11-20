@@ -11,6 +11,10 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 	<script src="/js/masonry.js"></script>
 	<script src="/js/interaction.js"></script>
+	
+	<!--[if lte IE 8]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
+	
+	<link rel="icon" href="/images/favicon.ico">
 </head>
 
 <body>
@@ -20,9 +24,10 @@
 			<a href="/showcase">
 				<img src="/images/logo.png" alt="{$general.name} Logo" id="logo"/>
 			</a>			
+			
 			{include 'navigation.html'}
+			
 			<form id="search_form">
-				{$user.username}
 				<input type="text" placeholder="Search..."/>
 			</form>
 		</div>
