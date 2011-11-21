@@ -3,29 +3,29 @@
 			<div id="left-column">
 				<div class="box">
 					<h2>Upload new work</h2>
-					<form id="upload_form" method="post" action="action/upload">
+					<form id="upload_form" method="post" action="action/upload" enctype="multipart/form-data">
 						<input type="hidden" name="category" id="category" value="null"/>
 						<div id="type">
-							<input type="radio" name="type" value="image"/> <label for="image">Image</label>
-							<input type="radio" name="type" value="video"/> <label for="video">Video</label>
-							<input type="radio" name="type" value="website"/> <label for="website">Website</label>
-							<input type="radio" name="type" value="document"/> <label for="document">Document</label>
+							<input type="radio" name="type" id="image" value="image"/> <label for="image">Image</label>
+							<input type="radio" name="type" id="video" value="video"/> <label for="video">Video</label>
+							<input type="radio" name="type" id="website" value="website"/> <label for="website">Website</label>
+							<input type="radio" name="type" id="document" value="document"/> <label for="document">Document</label>
 						</div>
 						
 						<input type="text" name="title" id="title" placeholder="Title"/>
 						<textarea name="description" id="description" placeholder="Description (min. 75 characters)"></textarea>
 						<div id="upload_options">
 							<div id="option_image">
-								<input type="file" name="userfile" id="userfile">
+								<input type="file" name="userfile" class="userfile">
 							</div>
 							<div id="option_video">
-								<input type="text" name="url" id="video_url" placeholder="Youtube or Vimeo URL"/>
+								<input type="text" name="video_url" id="video_url" placeholder="Youtube or Vimeo URL"/>
 							</div>
 							<div id="option_website">
-								<input type="text" name="url" id="website_url" placeholder="Website URL"/>
+								<input type="text" name="website_url" id="website_url" placeholder="Website URL"/>
 							</div>
 							<div id="option_document">
-								<input type="file" name="userfile" id="userfile">
+								<input type="file" name="userfile" class="userfile">
 							</div>
 						</div>
 						<input type="submit" value="Upload"/>
