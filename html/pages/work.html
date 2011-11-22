@@ -23,9 +23,9 @@
 
 <div id="work-right-column">
 		<div class="box">
-				<h2><a href="/work/{$work.id}/">{$work.title}</a></h2>
+				<h2><a href="/work/{$work.id}/">{$work.title|urldecode}</a></h2>
 				<p><em>By <a href="">{$work.username}</a>, posted on <time>{$work.date|date_format}</time>.</em></p>
-				<p>{$work.description}</p>
+				<p>{$work.description|urldecode}</p>
 		</div>
 </div>
 

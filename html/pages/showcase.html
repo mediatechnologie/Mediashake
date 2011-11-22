@@ -15,9 +15,9 @@
 		{/if}
 	{/if}
 	
-	<h3 class="title"><a href="work/{$item.id}/title-comes-here">{$item.title}</a></h3>
+	<h3 class="title"><a href="work/{$item.id}/title-comes-here">{$item.title|urldecode}</a></h3>
 	
-	<div class="description">{$item.description}</div>
+	<div class="description">{$item.description|urldecode}</div>
 	
 	<div class="meta">
 		<time class="icon time">{$item.date|date_format}</time>
