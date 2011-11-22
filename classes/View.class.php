@@ -23,7 +23,8 @@ class View extends Smarty
 		// Set up some general info
 		$general_info = array(
 			'name' => SITE_NAME,
-			'url' => SITE_URL
+			'url' => SITE_URL,
+			'charset' => CHARSET
 		);
 		
 		// Assign the general/default info to the View object

@@ -37,6 +37,7 @@ class Site
 	 * @access protected
 	 */
 	protected $page = 'landing';
+	protected $title = 'Untitled';
 	
 	/**
 	 * action
@@ -82,14 +83,14 @@ class Site
 		{
 			// Navigation if a user is logged in
 			$navigation = array(
-				'showcase'	=>	'Showcase',
-				'people'			=>	'People',
-				#'groups'			=>	'Groups',
-				#'converse'	=>	'Converse',
-				#'collaborate'	=>	'Collaborate',
-				#'settings'	=>	'Settings',
-				'upload'			=>	'Upload',
-				'action/logout'			=>	'Logout'
+				'showcase'      =>	'Showcase',
+				'people'        =>	'People',
+			//	'groups'        =>	'Groups',
+			//	'converse'      =>	'Converse',
+			//	'collaborate'   =>	'Collaborate',
+			//	'settings'      =>	'Settings',
+				'upload'        =>	'Upload',
+				'action/logout' =>	'Logout'
 			);
 		}
 		else
@@ -128,14 +129,15 @@ class Site
 		{
 			case 'work':
 			{
-				$wk = $this->wf->fetch(
-					array('id' => $this->path[1],'output_type' => 'array')
-				);
-				
+				$wk = $this->wf->fetch(array(
+					'id' => $this->path[1],
+					'output_type' => 'array'
+				));
+				$this->title = $wk['title'];
 				$this->view->assign('work', $wk);
-				
 				break;
 			}
+			case 'landing':
 			case 'showcase':
 			{
 				$wk = $this->wf->fetchAll();
@@ -144,7 +146,10 @@ class Site
 			}
 			case 'explore':
 			{
-				$popular_work = $this->wf->fetchAll(array('sort_by' => 'views', 'limit' => 15));
+				$popular_work = $this->wf->fetchAll(array(
+					'sort_by' => 'views',
+					'limit' => 15
+				));
 				
 				$this->view->assign('popular', $popular_work);
 				$this->view->assign('schools', $this->getSchools());
@@ -152,13 +157,18 @@ class Site
 			}
 			case 'home':
 			{
-				$recent_work = $this->wf->fetchAll(array('sort_by' => 'date', 'limit' => 5));
-				$popular_work = $this->wf->fetchAll(array('sort_by' => 'views', 'limit' => 10));
+				$recent_work = $this->wf->fetchAll(array(
+					'sort_by' => 'date',
+					'limit' => 5
+				));
+				$popular_work = $this->wf->fetchAll(array(
+					'sort_by' => 'views',
+					'limit' => 10
+				));
 				
 				$this->view->assign('recent', $recent_work);
 				$this->view->assign('popular', $popular_work);
 				$this->view->assign('schools', $this->getSchools());
-				
 				break;
 			}
 		}
@@ -197,8 +207,6 @@ class Site
 			switch($path[0])
 			{
 				case '':
-					$this->page = 'showcase';
-					break;
 				case 'showcase':
 					$this->page = 'showcase';
 					break;
@@ -267,6 +275,7 @@ class Site
 			case 'upload':
 			{
 				$this->uploadWork();
+				$this->page = 'showcase';
 				break;
 			}
 		}
@@ -321,7 +330,6 @@ class Site
 				throw new Exception('Invalid upload type.');
 			}
 		}
-		$w->type = $type;
 		$w->title = WorkFactory::sanitize($_POST['title']);
 		$w->description = WorkFactory::sanitize($_POST['description']);
 		$w->owner = $_SESSION['user']['id'];
@@ -349,7 +357,7 @@ class Site
 		try
 		{
 			// Head
-			$page['title'] = ucfirst($this->page);
+			$this->title = ucfirst($this->page);
 			
 			// Body
 			$file = 'html/pages/'.$this->page.'.html';
@@ -371,12 +379,19 @@ class Site
 			{
 				header('HTTP/1.1 404 Not Found');
 				$file = 'html/pages/404.html';
-				$page['title'] = 'Page not found';
+				$this->title = 'Page not found';
+			}
+			elseif($e->getMessage() == 403)
+			{
+				header('HTTP/1.1 403 Forbidden');
+				$file = 'html/pages/403.html';
+				$this->title = 'Forbidden';
 			}
 			else
 			{
+				header('HTTP/1.1 500 Internal Server Error');
 				$file = 'html/pages/error.html';
-				$page['title'] = 'Error';
+				$this->title = 'Error';
 				$page['content'] = $e->getMessage();
 			}
 		}
@@ -385,6 +400,7 @@ class Site
 		$this->view->assign('nav', $this->getNavigation());
 		
 		// Assign page info/contents to the view
+		$page['title'] = $this->title;
 		$this->view->assign('page', $page);
 		
 		// Assign user data to the view
