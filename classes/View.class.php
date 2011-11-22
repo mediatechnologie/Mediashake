@@ -29,5 +29,17 @@ class View extends Smarty
 		
 		// Assign the general/default info to the View object
 		$this->assign('general', $general_info);
+		
+		function smarty_block_gettext($params, $content, Smarty_Internal_Template $template, &$repeat)
+		{
+			if($repeat == false)
+			{
+				if(isset($content) and is_string($content))
+				{
+					return gettext($content);
+				}
+			}
+		}
+		$this->registerPlugin('block', 't', 'smarty_block_gettext');
 	}
 }
