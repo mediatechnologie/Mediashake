@@ -222,34 +222,115 @@ class Site
 					break;
 			}
 			
-			// If no page has been set, the page wasn't allowed, so show 404 error
+			// If no page has been set, the page wasn't allowed, so show a 404 error
 			if(!isset($this->page))
 				$this->page = '404';
 				
 			// Make path a class property for later use
 			$this->path = $path;
 		}
+		
+		return $this->page;
 	}
 	
+	/**
+	 * performAction function.
+	 * 
+	 * @access private
+	 * @param mixed $action
+	 * @return void
+	 */
 	private function performAction($action)
 	{
 		switch($action)
 		{
 			case 'login':
+			{
 				$user = new User;
 				if( $user->login($_POST['username'], $_POST['password']) )
 					return true;
 				else
 					return false;
+				
 				break;
+			}
 			case 'logout':
+			{
 				$user = new User;
 				if( $user->logout() )
 					return true;
 				else
 					return false;
+				
 				break;
+			}
+			case 'upload':
+			{
+				$this->uploadWork();
+				break;
+			}
 		}
+	}
+	
+	/**
+	 * uploadWork function.
+	 * Upload work from $_POST and $_FILES
+	 * @access private
+	 * @return bool
+	 */
+	private function uploadWork()
+	{
+		// Get ourselves a blank Work object.
+		$w = $this->wf->create();
+		$type = (isset($_POST['type'])) ? $_POST['type'] : null;
+		
+		// Se what type of work we're dealing with.
+		switch($type)
+		{
+			case 'website':
+			{
+				$w->type = 1;
+				$w->addWebsite($_POST['website_url']);
+				break;
+			}
+			case 'video':
+			{
+				$w->type = 2;
+				$w->addVideo($_POST['video_url']);
+				break;
+			}
+			case 'document':
+			{
+				$w->type = 3;
+				// Continue...
+			}
+			case 'image':
+			{
+				if(isset($_FILES['image_file']))
+					$file = $_FILES['image_file'];
+				elseif(isset($_FILES['document_file']))
+					$file = $_FILES['document_file'];
+				else
+					throw new Exception('No file received.');
+				
+				$w->addFile($file);
+				break;
+			}
+			default:
+			{
+				throw new Exception('Invalid upload type.');
+			}
+		}
+		$w->type = $type;
+		$w->title = WorkFactory::sanitize($_POST['title']);
+		$w->description = WorkFactory::sanitize($_POST['description']);
+		$w->owner = $_SESSION['user']['id'];
+		$w->school = $school = $_SESSION['user']['school'];
+		
+		if($this->wf->add($w))
+			return true;
+		else
+			return false;
 	}
 	
 	/**

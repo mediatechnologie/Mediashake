@@ -17,6 +17,35 @@ class WorkFactory
 		$this->db = new Database;
 	}
 	
+	public function add($work)
+	{
+		if(!($work instanceof Work))
+			throw new Exception('Did not receive a valid Work object.');
+		
+		$sql = 'INSERT INTO work ( title, description, type, owner, school, filename )
+				VALUES ( :title, :description, :type, :owner, :school, :filename )';
+		$values = array('title', 'description', 'type', 'owner', 'school', 'filename');
+		
+		$st = $this->db->prepare($sql);
+		
+		foreach($work->getArray() as $wprop => $wval)
+		{
+			if(in_array($wprop, $values))
+			{
+				$st->bindValue(':'.(string) $wprop, $wval);
+			}
+		}
+		
+		if($st->execute())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	/**
 	 * fetch function.
 	 * get a single work item from the database
@@ -57,11 +86,15 @@ class WorkFactory
 			case 'array':
 			{
 				$output = $st->fetch(PDO::FETCH_ASSOC);
+				if($output['type'] == 0)
+					$output['filename'] = UPLOAD_PATH.$output['filename'];
 				break;
 			}
 			case 'json':
 			{
 				$output = $st->fetch(PDO::FETCH_ASSOC);
+				if($output['type'] == 0)
+					$output['filename'] = UPLOAD_PATH.$output['filename'];
 				$output = json_encode($output);
 				break;
 			}
@@ -75,7 +108,7 @@ class WorkFactory
 	 * get multiple work items from the database
 	 * @access public
 	 * @param array $args (default: array())
-	 * @return void
+	 * @return mixed
 	 */
 	public function fetchAll($args = array())
 	{
@@ -84,45 +117,33 @@ class WorkFactory
 			'sort_by' => 'date',
 			// The maximum amount of rows to be returned
 			'limit' => 50,
-			// What kind of data we should output,
-			// Array or JSON
+			// What kind of data we should output, an Array or JSON
 			'output_type' => 'array'
 		);
 		$args = array_merge($defaults, $args);
 		extract($args);
-
-		$sql = "SELECT * FROM `work` ORDER BY ".$sort_by." DESC LIMIT ".$limit;
-		$return = array();
-
-		if($result = $this->db->query($sql))
+		
+		$sql = 'SELECT * FROM work ORDER BY :sort DESC LIMIT :limit';
+		$st = $this->db->prepare($sql);
+		
+		$st->bindParam(':sort', $sort_by);
+		$st->bindParam(':limit', $limit, PDO::PARAM_INT);
+		
+		if($st->execute())
 		{
-			$output = $result->fetchAll(PDO::FETCH_ASSOC);
-			foreach($output as & $row)
+			$output = $st->fetchAll(PDO::FETCH_ASSOC);
+			foreach($output as & $w)
 			{
-				$row['title'] = urldecode($row['title']);
-				
-				if($row['type'] == 2) // Video
-				{
-					$row['filename'] = 'images/video.jpg';
-				}
-				else // Image
-				{
-					$row['filename'] = 'uploads/'.$row['filename'];
-				}
-				
-				$row['title'] = str_replace("'", "&#39;", $row['title']);
-				$row['title'] = str_replace('"', '&quot;', $row['title']);
-				
-				$row['description'] = str_replace("'", "&#39;", 
-					$row['description']);
-				$row['description'] = str_replace('"', '&quot;', 
-					$row['description']);
+				if($w['type'] == 0)
+					$w['filename'] = substr(UPLOAD_PATH, 2).$w['filename'];
 			}
-			
-			unset($result);
+		}
+		else
+		{
+			throw new Exception('Database query failed. '.$st->errorInfo());
 		}
 		
-		if($args['output_type'] == 'json')
+		if($output_type == 'json')
 		{
 			return json_encode($output);
 		}
@@ -130,6 +151,19 @@ class WorkFactory
 		{
 			return $output;
 		}
+	}
+	
+	/**
+	 * sanitize function.
+	 * Sanitize user input.
+	 * @access public
+	 * @static
+	 * @param mixed $input
+	 * @return void
+	 */
+	public static function sanitize($input)
+	{
+		return htmlentities($input, ENT_QUOTES | ENT_HTML5, CHARSET);
 	}
 	
 	/**
