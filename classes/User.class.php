@@ -34,6 +34,14 @@ class User
 		$this->db = new Database;
 	}
 	
+	/**
+	 * login function.
+	 * Log a user in.
+	 * @access public
+	 * @param mixed $username
+	 * @param mixed $password
+	 * @return bool
+	 */
 	public function login($username, $password)
 	{
 		
@@ -63,6 +71,12 @@ class User
 		}
 	}
 	
+	/**
+	 * logout function.
+	 * Destroy the current session.
+	 * @access public
+	 * @return void
+	 */
 	public function logout()
 	{
 		session_destroy();

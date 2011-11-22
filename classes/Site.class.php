@@ -37,6 +37,7 @@ class Site
 	 * @access protected
 	 */
 	protected $page = 'landing';
+	protected $title = 'Untitled';
 	
 	/**
 	 * action
@@ -82,14 +83,14 @@ class Site
 		{
 			// Navigation if a user is logged in
 			$navigation = array(
-				'showcase'	=>	'Showcase',
-				'people'			=>	'People',
-				#'groups'			=>	'Groups',
-				#'converse'	=>	'Converse',
-				#'collaborate'	=>	'Collaborate',
-				#'settings'	=>	'Settings',
-				'upload'			=>	'Upload',
-				'action/logout'			=>	'Logout'
+				'showcase'      =>	'Showcase',
+				'people'        =>	'People',
+			//	'groups'        =>	'Groups',
+			//	'converse'      =>	'Converse',
+			//	'collaborate'   =>	'Collaborate',
+			//	'settings'      =>	'Settings',
+				'upload'        =>	'Upload',
+				'action/logout' =>	'Logout'
 			);
 		}
 		else
@@ -128,14 +129,15 @@ class Site
 		{
 			case 'work':
 			{
-				$wk = $this->wf->fetch(
-					array('id' => $this->path[1],'output_type' => 'array')
-				);
-				
+				$wk = $this->wf->fetch(array(
+					'id' => $this->path[1],
+					'output_type' => 'array'
+				));
+				$this->title = $wk['title'];
 				$this->view->assign('work', $wk);
-				
 				break;
 			}
+			case 'landing':
 			case 'showcase':
 			{
 				$wk = $this->wf->fetchAll();
@@ -144,7 +146,10 @@ class Site
 			}
 			case 'explore':
 			{
-				$popular_work = $this->wf->fetchAll(array('sort_by' => 'views', 'limit' => 15));
+				$popular_work = $this->wf->fetchAll(array(
+					'sort_by' => 'views',
+					'limit' => 15
+				));
 				
 				$this->view->assign('popular', $popular_work);
 				$this->view->assign('schools', $this->getSchools());
@@ -152,13 +157,18 @@ class Site
 			}
 			case 'home':
 			{
-				$recent_work = $this->wf->fetchAll(array('sort_by' => 'date', 'limit' => 5));
-				$popular_work = $this->wf->fetchAll(array('sort_by' => 'views', 'limit' => 10));
+				$recent_work = $this->wf->fetchAll(array(
+					'sort_by' => 'date',
+					'limit' => 5
+				));
+				$popular_work = $this->wf->fetchAll(array(
+					'sort_by' => 'views',
+					'limit' => 10
+				));
 				
 				$this->view->assign('recent', $recent_work);
 				$this->view->assign('popular', $popular_work);
 				$this->view->assign('schools', $this->getSchools());
-				
 				break;
 			}
 		}
@@ -197,8 +207,6 @@ class Site
 			switch($path[0])
 			{
 				case '':
-					$this->page = 'showcase';
-					break;
 				case 'showcase':
 					$this->page = 'showcase';
 					break;
@@ -222,34 +230,115 @@ class Site
 					break;
 			}
 			
-			// If no page has been set, the page wasn't allowed, so show 404 error
+			// If no page has been set, the page wasn't allowed, so show a 404 error
 			if(!isset($this->page))
 				$this->page = '404';
 				
 			// Make path a class property for later use
 			$this->path = $path;
 		}
+		
+		return $this->page;
 	}
 	
+	/**
+	 * performAction function.
+	 * 
+	 * @access private
+	 * @param mixed $action
+	 * @return void
+	 */
 	private function performAction($action)
 	{
 		switch($action)
 		{
 			case 'login':
+			{
 				$user = new User;
 				if( $user->login($_POST['username'], $_POST['password']) )
 					return true;
 				else
 					return false;
+				
 				break;
+			}
 			case 'logout':
+			{
 				$user = new User;
 				if( $user->logout() )
 					return true;
 				else
 					return false;
+				
 				break;
+			}
+			case 'upload':
+			{
+				$this->uploadWork();
+				$this->page = 'showcase';
+				break;
+			}
 		}
+	}
+	
+	/**
+	 * uploadWork function.
+	 * Upload work from $_POST and $_FILES
+	 * @access private
+	 * @return bool
+	 */
+	private function uploadWork()
+	{
+		// Get ourselves a blank Work object.
+		$w = $this->wf->create();
+		$type = (isset($_POST['type'])) ? $_POST['type'] : null;
+		
+		// Se what type of work we're dealing with.
+		switch($type)
+		{
+			case 'website':
+			{
+				$w->type = 1;
+				$w->addWebsite($_POST['website_url']);
+				break;
+			}
+			case 'video':
+			{
+				$w->type = 2;
+				$w->addVideo($_POST['video_url']);
+				break;
+			}
+			case 'document':
+			{
+				$w->type = 3;
+				// Continue...
+			}
+			case 'image':
+			{
+				if(isset($_FILES['image_file']))
+					$file = $_FILES['image_file'];
+				elseif(isset($_FILES['document_file']))
+					$file = $_FILES['document_file'];
+				else
+					throw new Exception('No file received.');
+				
+				$w->addFile($file);
+				break;
+			}
+			default:
+			{
+				throw new Exception('Invalid upload type.');
+			}
+		}
+		$w->title = WorkFactory::sanitize($_POST['title']);
+		$w->description = WorkFactory::sanitize($_POST['description']);
+		$w->owner = $_SESSION['user']['id'];
+		$w->school = $school = $_SESSION['user']['school'];
+		
+		if($this->wf->add($w))
+			return true;
+		else
+			return false;
 	}
 	
 	/**
@@ -268,7 +357,7 @@ class Site
 		try
 		{
 			// Head
-			$page['title'] = ucfirst($this->page);
+			$this->title = ucfirst($this->page);
 			
 			// Body
 			$file = 'html/pages/'.$this->page.'.html';
@@ -290,12 +379,19 @@ class Site
 			{
 				header('HTTP/1.1 404 Not Found');
 				$file = 'html/pages/404.html';
-				$page['title'] = 'Page not found';
+				$this->title = 'Page not found';
+			}
+			elseif($e->getMessage() == 403)
+			{
+				header('HTTP/1.1 403 Forbidden');
+				$file = 'html/pages/403.html';
+				$this->title = 'Forbidden';
 			}
 			else
 			{
+				header('HTTP/1.1 500 Internal Server Error');
 				$file = 'html/pages/error.html';
-				$page['title'] = 'Error';
+				$this->title = 'Error';
 				$page['content'] = $e->getMessage();
 			}
 		}
@@ -304,6 +400,7 @@ class Site
 		$this->view->assign('nav', $this->getNavigation());
 		
 		// Assign page info/contents to the view
+		$page['title'] = $this->title;
 		$this->view->assign('page', $page);
 		
 		// Assign user data to the view

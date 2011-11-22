@@ -2,6 +2,7 @@
 /*
  * jsi.php
  * Javascript endpoint.
+ * @deprecated
  */
 session_start();
 

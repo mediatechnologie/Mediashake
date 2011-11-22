@@ -4,11 +4,23 @@
 {foreach $work as $item}
 <li id="item_{$item@iteration}">
 	<div class="thumbnail-shadow"></div>
-	<a href="work/{$item.id}/title-comes-here"><img src="uploads/{$item.id}_220x250.jpg" class="thumbnail"/></a>
-	<h3 class="title"><a href="work/{$item.id}/{$item.title}">{$item.title}</a></h3>
+	
+	{if $item.type == 0}
+		<a href="work/{$item.id}/title-comes-here"><img src="/{$item.filename}" class="thumbnail"/></a>
+	{elseif $item.type == 2}
+		{if $item.filename|strpos:"youtube" !== false}
+		<iframe width="220" height="165" src="https://www.youtube.com/embed/{$item.filename|substr:8}?hd=1" frameborder="0" allowfullscreen></iframe>
+		{elseif $item.filename|strpos:"vimeo" !== false}
+		<iframe src="http://player.vimeo.com/video/{$item.filename|substr:6}?portrait=0" width="220" height="165" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		{/if}
+	{/if}
+	
+	<h3 class="title"><a href="work/{$item.id}/title-comes-here">{$item.title}</a></h3>
+	
 	<div class="description">{$item.description}</div>
+	
 	<div class="meta">
-		<time class="icon time">{$item.date}</time>
+		<time class="icon time">{$item.date|date_format}</time>
 		<div class="icon like">{$item.votes}</div>
 	</div>
 </li>
