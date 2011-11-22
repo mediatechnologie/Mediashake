@@ -23,8 +23,15 @@ define('SITE_NAME', 'Mediashake');
 // The root url of the site, without a trailing slash
 define('SITE_URL', 'http://mediashake');
 
+// The character set for output.
 define('CHARSET', 'utf-8');
+
+// The default locale setting to use.
 define('DEFAULT_LOCALE', 'en_UK');
+
+// Path to the upload directory.
+define('UPLOAD_PATH', './uploads/');
+
 
 // Smarty constants
 define('SMARTY_DIR', 'classes/');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * WorkForce class.
+ * Old class with functions for uploading work.
+ * @deprecated
+ */
 class WorkForce
 {
 	protected $db;

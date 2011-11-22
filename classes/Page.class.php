@@ -48,9 +48,19 @@ class Page
 		return $this->title;
 	}
 	
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	
 	public function getContent()
 	{
 		return $this->content;
+	}
+	
+	public function setContent($content)
+	{
+		$this->content = $content;
 	}
 	
 	public function getId()
@@ -61,5 +71,28 @@ class Page
 	public function getSlug()
 	{
 		return $this->slug;
+	}
+	
+	public function setSlug($slug)
+	{
+		$this->slug = $slug;
+	}
+	
+	public function __get($prop)
+	{
+		return $this->$prop;
+	}
+	
+	public function __set($prop, $val)
+	{
+		if(isset($this->$prop) and property_exists($this, $prop))
+		{
+			$this->$prop = $val;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

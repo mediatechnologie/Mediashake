@@ -5,6 +5,7 @@
 <head>
 	<base href="{$general.url}" />
 	<title>{$general.name} | {$page.title|default: 'Untitled'}</title>
+	<meta charset="{$general.charset}" />
 	
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 	
@@ -25,11 +26,15 @@
 				<img src="/images/logo.png" alt="{$general.name} Logo" id="logo"/>
 			</a>			
 			
-			{include 'navigation.html'}
+			{if $page.title == 'Landing'}
+				{include 'loginform.html'}
+			{else}
+				{include 'navigation.html'}
 			
 			<form id="search_form">
 				<input type="text" placeholder="Search..."/>
 			</form>
+			{/if}
 		</div>
 	</header>
 	<section id="content">
