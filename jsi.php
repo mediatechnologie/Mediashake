@@ -128,26 +128,40 @@ switch($post_action)
 		}
 		break;
 	
-	case 'rate':
-		$id = stripslashes($_POST['work']);
-		$vote = $_POST['rating'];
+	case 'love':
+	
+		$id = $_POST['id'];
+		$user = $_SESSION['user']['id'];
 		
-		$query = "SELECT * FROM `work` WHERE `id` = '$id' LIMIT 0,1";
-
+		$query = "SELECT * FROM `loves` WHERE `user` = '$user' AND `work` = '$id' LIMIT 0,1";
+		
 		if ($result = $db->query($query)) {
-		
-			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$rating = $row['rating'];
-				$votes = $row['votes'];
-				$total_rating = $rating*$votes;
-				$new_rating = ($total_rating+$vote)/($votes+1);
-				$new_votes = $votes+1;
-				$db->query("UPDATE  `work` SET  `rating` =  '$new_rating', `votes` = '$new_votes' WHERE  `id` = '$id';");
-				echo $id;
+			if($result->rowCount() === 0)
+			{
+				// Add one love to work
+				$query_work = "SELECT * FROM `work` WHERE `id` = '$id' LIMIT 0,1";
+				if($work = $db->query($query_work))
+				{
+					$row = $work->fetch(PDO::FETCH_ASSOC);
+					$loves = $row['votes'];
+					$new_loves = $loves+1;
+					$new_loves_query = "UPDATE `work` SET `votes` = '$new_loves' WHERE `id` = $id";
+					$db->query($new_loves_query);
+				
+					// Save it to the user's loves
+					$query = "INSERT INTO `loves` VALUES (NULL, '$user', '$id');";
+					$db->query($query);
+					
+					echo '1';
+				}
 			}
-			
-			$result->free();
+			else
+			{
+				echo '0';
+			}
 		}
+		/*echo 'User: '.$user.' - '.$_SESSION['user']['username']."\n".
+							'Work: '.$id;*/
 		break;
 	
 }

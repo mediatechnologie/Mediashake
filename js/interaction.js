@@ -70,4 +70,32 @@ $(function(){
 			return false;
 		}
 	});
+	
+	
+	// Love
+	$('.meta .like').click(function(){
+		
+		var loves = Number($(this).text());
+		var element = $(this);
+		var id = $(this).parent().parent().attr('id').split('_');
+		id = id[1];
+		
+		$.ajax({
+			url: 'jsi.php',
+			type: 'POST',
+			data: {action: 'love', id: id},
+			async: false,
+			cache: false,
+			success: function(data){
+				if(data == 1)
+				{
+					var new_loves = loves+1;
+					$(element).html(new_loves);
+				}
+				else
+				{
+				}
+			}
+		});
+	});
 });

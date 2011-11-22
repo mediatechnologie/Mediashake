@@ -98,30 +98,12 @@ class WorkFactory
 		if($result = $this->db->query($sql))
 		{
 			$output = $result->fetchAll(PDO::FETCH_ASSOC);
-			foreach($output as & $row)
-			{
-				$row['title'] = urldecode($row['title']);
-				
-				if($row['type'] == 2) // Video
-				{
-					$row['filename'] = 'images/video.jpg';
-				}
-				else // Image
-				{
-					$row['filename'] = 'uploads/'.$row['filename'];
-				}
-				
-				$row['title'] = str_replace("'", "&#39;", $row['title']);
-				$row['title'] = str_replace('"', '&quot;', $row['title']);
-				
-				$row['description'] = str_replace("'", "&#39;", 
-					$row['description']);
-				$row['description'] = str_replace('"', '&quot;', 
-					$row['description']);
-			}
-			
 			unset($result);
 		}
+		
+		// Get loves
+		
+		
 		
 		if($args['output_type'] == 'json')
 		{
