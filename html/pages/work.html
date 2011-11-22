@@ -2,13 +2,25 @@
 
 <div id="work-left-column">
 		<div class="box nopadding">
-				<img src="/uploads/{$work.filename}" alt="Description comes here"/>
+		
+		{if $work.type == 0}
+			<a href="{$work.filename}"><img src="{$work.filename}" alt="{$work.title}"/></a>
+		{elseif $work.type == 2}
+			{if $work.filename|strpos:"youtube" !== false}
+			<iframe width="740" height="555" src="https://www.youtube.com/embed/{$work.filename|substr:8}?hd=1" frameborder="0" allowfullscreen></iframe>
+			{elseif $work.filename|strpos:"vimeo" !== false}
+			<iframe width="740" height="555" src="http://player.vimeo.com/video/{$work.filename|substr:6}?portrait=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			{/if}
+		{/if}
+		
 		</div>
+		
 		<div class="box">
 				<h2>Comments</h2>
 				-
 		</div>
 </div>
+
 <div id="work-right-column">
 		<div class="box">
 				<h2><a href="/work/{$work.id}/">{$work.title}</a></h2>
@@ -16,4 +28,5 @@
 				<p>{$work.description}</p>
 		</div>
 </div>
+
 {include 'foot.html'}
