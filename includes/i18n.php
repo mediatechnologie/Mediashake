@@ -11,8 +11,8 @@ $locale = (isset($_GET['lang']))? $_GET['lang'] : DEFAULT_LOCALE;
 $directory = './languages';
 
 // Set up gettext
-setlocale(LC_ALL, 'nl_NL');
-T_setlocale(LC_MESSAGES, 'nl_NL');
+setlocale(LC_ALL, $locale);
+T_setlocale(LC_MESSAGES, $locale);
 
 bindtextdomain($domain, $directory);
 
