@@ -1,15 +1,14 @@
 <nav id="navigation">
 	<ol id="top-navigation">
-	{foreach $nav as $link => $name}
-		<li><a href="{$link}" id="link-{$link}">{$name}</a></li>
-	{/foreach}
+	<?php foreach($nav as $link => $name)
+		echo '<li><a href="'.$link.'" id="link-'.$link.'">'.$name.'</a></li>'; ?>
 	</ol>
 	
 	<ol id="categories">
-		<li class="active"><a href="#">{t}All{/t}</a></li>
-		<li><a href="#">{t}Static{/t}</a></li>
-		<li><a href="#">{t}Motion{/t}</a></li>
-		<li><a href="#">{t}Interactive{/t}</a></li>
-		<li><a href="#">{t}Culture{/t}</a></li>
+		<li class="active"><a href="#"><?php echo _('All'); ?></a></li>
+		<li><a href="#"><?php echo _('Static'); ?></a></li>
+		<li><a href="#"><?php echo _('Motion'); ?></a></li>
+		<li><a href="#"><?php echo _('Interactive'); ?></a></li>
+		<li><a href="#"><?php echo _('Culture'); ?></a></li>
 	</ol>
 </nav>

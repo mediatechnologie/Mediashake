@@ -1,5 +1,6 @@
-{include 'head.html'}
+<?php include('head.html'); ?>
 
-<h1>403 - Forbidden</h1>
+<h1><?php echo $page['title']; ?></h1>
+<p><?php echo _("You're not allowed to see that!"); ?></p>
 
-{include 'foot.html'}
+<?php include('foot.html'); ?>

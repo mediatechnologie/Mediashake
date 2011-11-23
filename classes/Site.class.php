@@ -37,7 +37,6 @@ class Site
 	 * @access protected
 	 */
 	protected $page = 'landing';
-	protected $title = 'Untitled';
 	
 	/**
 	 * action
@@ -62,7 +61,7 @@ class Site
 	{
 		// Set up some objects
 		$this->db = new Database;
-		$this->view = new View;
+		$this->view = new MView;
 		$this->wf = new WorkFactory;
 		
 		// Determine which page should be served
@@ -135,7 +134,7 @@ class Site
 					'id' => $this->path[1],
 					'output_type' => 'array'
 				));
-				$this->title = $wk['title'];
+				$this->view->setTitle($wk['title']);
 				$this->view->assign('work', $wk);
 				break;
 			}
@@ -359,7 +358,7 @@ class Site
 		try
 		{
 			// Head
-			$this->title = ucfirst($this->page);
+			$this->view->setTitle(ucfirst($this->page));
 			
 			// Body
 			$file = 'html/pages/'.$this->page.'.html';
@@ -381,19 +380,19 @@ class Site
 			{
 				header('HTTP/1.1 404 Not Found');
 				$file = 'html/pages/404.html';
-				$this->title = _('Page not found');
+				$this->view->setTitle(_('Page not found'));
 			}
 			elseif($e->getMessage() == 403)
 			{
 				header('HTTP/1.1 403 Forbidden');
 				$file = 'html/pages/403.html';
-				$this->title = _('Forbidden');
+				$this->view->setTitle(_('Forbidden'));
 			}
 			else
 			{
 				header('HTTP/1.1 500 Internal Server Error');
 				$file = 'html/pages/error.html';
-				$this->title = _('Error');
+				$this->view->setTitle(_('Internal server error'));
 			}
 		}
 		
@@ -401,7 +400,7 @@ class Site
 		$this->view->assign('nav', $this->getNavigation());
 		
 		// Assign page info/contents to the view
-		$page['title'] = $this->title;
+		$page['title'] = $this->view->getTitle();
 		$this->view->assign('page', $page);
 		
 		// Assign user data to the view
@@ -414,7 +413,8 @@ class Site
 		// Output
 		try
 		{
-			$output = $this->view->fetch($file);
+			$this->view->setFile($file);
+			$output = $this->view->fetch();
 		}
 		catch(SmartyException $e)
 		{

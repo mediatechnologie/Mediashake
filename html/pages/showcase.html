@@ -1,30 +1,58 @@
-{include 'head.html'}
+<?php include('head.html'); ?>
 
 <ol id="list" class="masonry">
-{foreach $work as $item}
-<li id="item_{$item@iteration}">
+<?php
+$iteration = 1;
+
+foreach($work as $item): ?>
+<li id="item_<?php echo $iteration; ?>">
 	<div class="thumbnail-shadow"></div>
 	
-	{if $item.type == 0}
-		<a href="work/{$item.id}/title-comes-here"><img src="/{$item.filename}" class="thumbnail"/></a>
-	{elseif $item.type == 2}
-		{if $item.filename|strpos:"youtube" !== false}
-		<iframe width="220" height="165" src="https://www.youtube.com/embed/{$item.filename|substr:8}?hd=1" frameborder="0" allowfullscreen></iframe>
-		{elseif $item.filename|strpos:"vimeo" !== false}
-		<iframe src="http://player.vimeo.com/video/{$item.filename|substr:6}?portrait=0" width="220" height="165" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-		{/if}
-	{/if}
+<?php
+// Image
+if($item['type'] == 0)
+{
+	echo '<a href="work/'.$item['id'].'"><img src="/'.$item['filename'].'" alt="'.$item['title'].'" class="thumbnail" /></a>';
+}
+// Video
+elseif($item['type'] == 2)
+{
+	if(strpos($item['filename'], 'youtube') !== false)
+	{
+		$url = substr($item['filename'], 8);
+		echo '<iframe width="220" height="165" src="https://www.youtube.com/embed/'.$url.'?hd=1" frameborder="0" allowfullscreen></iframe>';
+	}
+	elseif(strpos($item['filename'], 'vimeo') !== false)
+	{
+		$url = substr($item['filename'], 6);
+		echo '<iframe src="http://player.vimeo.com/video/'.$url.'?portrait=0" width="220" height="165" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+	}
+}
+// Website
+elseif($item['type'] == 1)
+{
+	// echo '<h2>Website</h2>';
+}
+// Document
+elseif($item['type'] == 3)
+{
+	// echo '<h2>Document</h2>';
+}
+
+$date = date('j M, Y', strtotime($item['date']));
+$iteration++;
+?>
 	
-	<h3 class="title"><a href="work/{$item.id}/title-comes-here">{$item.title}</a></h3>
+	<h3 class="title"><a href="work/<?php echo $item['id']; ?>"><?php echo $item['title']; ?></a></h3>
 	
-	<div class="description">{$item.description}</div>
+	<div class="description"><?php echo $item['description']; ?></div>
 	
 	<div class="meta">
-		<time class="icon time">{$item.date|date_format}</time>
-		<div class="icon like">{$item.votes}</div>
+		<time class="icon time"><?php echo $date; ?></time>
+		<div class="icon like"><?php echo $item['votes']; ?></div>
 	</div>
 </li>
-{/foreach}
+<?php endforeach; ?>
 </ol>
 
-{include 'foot.html'}
+<?php include('foot.html'); ?>

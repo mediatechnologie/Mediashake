@@ -1,16 +1,16 @@
 <div class="box">
-	<div class="title">Schools</div>
+	<div class="title"><?php echo _('Schools'); ?></div>
 	<ul id="schools">
-		{foreach $schools as $sc}
-		<li value="{$sc@iteration}">
-			<img src="images/flags/{$sc.country_code}.png"/>
-			{$sc.name}
+		<?php foreach($schools as $sc): ?>
+		<li>
+			<img src="images/flags/<?php echo $sc['country_code']; ?>.png"/>
+			<?php echo $sc['name']; ?>
 		</li>
-		{/foreach}
+		<?php endforeach; ?>
 		
 		<li class="reset" value="reset">
 			<img src="images/flags/eu.png"/>
-			All Schools
+			<?php echo _('All Schools'); ?>
 		</li>
 	</ul>
 </div>
