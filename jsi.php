@@ -15,7 +15,7 @@ session_start();
 
 // Establish database connection
 require('includes/config.php');
-require('classes/database.class.php');
+require('classes/Database.class.php');
 $db = new Database;
 
 function getname($id)
