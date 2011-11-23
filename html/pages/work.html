@@ -1,44 +1,69 @@
-{include 'head.html'}
+<?php include('head.html'); ?>
 
 <div id="work-left-column">
 		<div class="box nopadding">
-		
-		{if $work.type == 0}
-			<a href="{$work.filename}"><img src="{$work.filename}" alt="{$work.title}" id="work_image"/></a>
-		{elseif $work.type == 2}
-			{if $work.filename|strpos:"youtube" !== false}
-			<iframe width="740" height="555" src="https://www.youtube.com/embed/{$work.filename|substr:8}?hd=1" frameborder="0" allowfullscreen></iframe>
-			{elseif $work.filename|strpos:"vimeo" !== false}
-			<iframe width="740" height="555" src="http://player.vimeo.com/video/{$work.filename|substr:6}?portrait=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-			{/if}
-		{/if}
+
+<?php
+// Image
+if($work['type'] == 0)
+{
+	echo '<a href="/'.$work['filename'].'"><img src="/'.$work['filename'].'" alt="'.$work['title'].'" id="work_image" /></a>';
+}
+// Video
+elseif($work['type'] == 2)
+{
+	if(strpos($work['filename'], 'youtube') !== false)
+	{
+		$url = substr($work['filename'], 8);
+		echo '<iframe width="740" height="555" src="https://www.youtube.com/embed/'.$url.'?hd=1" frameborder="0" allowfullscreen></iframe>';
+	}
+	elseif(strpos($work['filename'], 'vimeo') !== false)
+	{
+		$url = substr($work['filename'], 6);
+		echo '<iframe width="740" height="555" src="http://player.vimeo.com/video/'.$url.'?portrait=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+	}
+}
+// Website
+elseif($work['type'] == 1)
+{
+	// echo '<h2>Website</h2>';
+}
+// Document
+elseif($work['type'] == 3)
+{
+	// echo '<h2>Document</h2>';
+}
+?>
 		
 		</div>
 		
 		<div class="box">
-				<h2>Comments</h2>
-				<form id="addcomment" action="action/comment/{$work.id}" method="post">
-						<img src="https://graph.facebook.com/{$user.facebook}/picture"/>
+				<h2><?php echo _('Comments'); ?></h2>
+				<form id="addcomment" action="action/comment/<?php echo $work['id']; ?>" method="post">
+						<img src="https://graph.facebook.com/<?php echo $user['facebook']; ?>/picture"/>
 						<textarea name="comment"></textarea>
-						<input type="submit" value="Comment">
+						<input type="submit" value="<?php echo _('Comment'); ?>">
 				</form>
 				<ol id="comments">
-						{foreach $comments as $comment}
+						<?php foreach($comments as $comment): ?>
 						<li>
-						<img src="https://graph.facebook.com/{$comment.facebook}/picture"/>
-								<p class="author">{$comment.firstname} {$comment.lastname}</p>{$comment.comment}
+						<img src="https://graph.facebook.com/<?php echo $comment['facebook']; ?>/picture"/>
+								<p class="author"><?php echo $comment['firstname'].' '.$comment['lastname']; ?></p><?php echo $comment['comment']; ?>
 						</li>
-						{/foreach}
+						<?php endforeach; ?>
 				</ol>
 		</div>
 </div>
 
 <div id="work-right-column">
 		<div class="box">
-				<h2><a href="/work/{$work.id}/">{$work.title|urldecode}</a></h2>
-				<p><em>By <a href="">{$work.username}</a>, posted on <time>{$work.date|date_format}</time>.</em></p>
-				<p>{$work.description|urldecode}</p>
+				<h2><a href="/work/<?php echo $work['id']; ?>"><?php echo $work['title']; ?></a></h2>
+				
+				<p><em><?php echo sprintf(_('By %s, posted on %s.'), $work['username'], date('j F Y', strtotime($work['date']))); ?></em></p>
+				
+				<h3><?php echo _('Description'); ?></h3>
+				<p><?php echo urldecode($work['description']); ?></p>
 		</div>
 </div>
 
-{include 'foot.html'}
+<?php include('foot.html'); ?>

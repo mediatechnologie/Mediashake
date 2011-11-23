@@ -1,58 +1,61 @@
-{include 'head.html'}
+<?php include('head.html'); ?>
 
 <div id="left-column">
 	<ul id="landing-showcase">
-		{foreach $work as $item}{if $item.type == 0}<li><a href="work/{$item.id}/title-comes-here"><img src="{$item.filename}"/></a></li>{/if}{/foreach}
+		<?php foreach($work as $item)
+		{
+			if($item['type'] == 0)
+				echo '<li><a href="work/'.$item['id'].'"><img src="'.$item['filename'].'"/></a></li>';
+		} ?>
 	</ul>
 </div>
 <div id="right-column">
-	<h2>Ahoj stranger!</h2>
-	<h3>You currently need to be invited for an account.</h3>
+	<h2><?php echo _('Ahoj stranger!'); ?></h2>
+	<h3><?php echo _('You currently need to be invited for an account.'); ?></h3>
 	<hr/>
 	<p>Are you in the DaVinci exchange programme and are you a student at Mediacollege Amsterdam, Filmov&aacute; &#352;kola or Olav Duun? You don't need an invitation and you can get an account by filling in this form.</p>
 	<hr/>
 	<form>
 		<table>
 			<tr>
-				<td>First Name:</td>
+				<td><?php echo _('First Name'); ?></td>
 				<td><input type="text" name="firstname"/></td>
 			</tr>
 			<tr>
-				<td>Last Name:</td>
+				<td><?php echo _('Last Name'); ?></td>
 				<td><input type="text" name="firstname"/></td>
 			</tr>
 			<tr>
-				<td>Your Email:</td>
+				<td><?php echo _('Your Email'); ?></td>
 				<td><input type="text" name="firstname"/></td>
 			</tr>
 			<tr>
-				<td>Re-enter Email:</td>
+				<td><?php echo _('Re-enter Email'); ?></td>
 				<td><input type="text" name="firstname"/></td>
 			</tr>
 			<tr>
-				<td>New Password:</td>
+				<td><?php echo _('New Password'); ?></td>
 				<td><input type="text" name="firstname"/></td>
 			</tr>
 			<tr>
-				<td>I am:</td>
+				<td><?php echo _('Gender'); ?></td>
 				<td><input type="text" name="firstname"/></td>
 			</tr>
 			<tr>
-				<td>School</td>
+				<td><?php echo _('School'); ?></td>
 				<td>
 					<select name="school">
 						<option value="1">Mediacollege Amsterdam</option>
-						<option value="2">Filmová škola</option>
+						<option value="2">Filmov&aacute; &#353;kola</option>
 						<option value="3">Olav Duun</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td></td>
-				<td><input type="submit" value="Request an invitation"/></td>
+				<td><input type="submit" value="<?php echo _('Request an invitation'); ?>"/></td>
 			</tr>
 		</table>
 	</form>
 </div>
 
-{include 'foot.html'}
+<?php include('foot.html'); ?>

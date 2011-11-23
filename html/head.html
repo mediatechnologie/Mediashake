@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
 
 <head>
-	<base href="{$general.url}" />
-	<title>{$general.name} | {$page.title|default: 'Untitled'}</title>
-	<meta charset="{$general.charset}" />
+	<base href="<?php echo $general['url']; ?>" />
+	<title><?php echo $general['name'].' | '.$page['title']; ?></title>
+	<meta charset="<?php echo $general['charset']; ?>" />
 	
-	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+	<link rel="stylesheet" href="/css/style.css"/>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 	<script src="/js/masonry.js"></script>
@@ -23,18 +23,19 @@
 	<header id="header">
 		<div class="wrap">
 			<a href="/showcase">
-				<img src="/images/logo.png" alt="{$general.name} Logo" id="logo"/>
+				<img src="/images/logo.png" alt="<?php echo $general['name']; ?> Logo" id="logo"/>
 			</a>			
-			
-			{if $page.title == 'Landing'}
-				{include 'loginform.html'}
-			{else}
-				{include 'navigation.html'}
-			
-			<form id="search_form">
-				<input type="text" placeholder="Search..."/>
-			</form>
-			{/if}
+			<?php
+			if($page['title'] == 'Landing')
+			{
+				include('loginform.html'); 
+			}
+			else
+			{
+				include('navigation.html');
+				include('searchform.html');
+			}
+			?>
 		</div>
 	</header>
 	<section id="content">

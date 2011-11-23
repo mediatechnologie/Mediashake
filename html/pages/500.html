@@ -1,5 +1,6 @@
-{include 'head.html'}
+<?php include('head.html'); ?>
 
-<h1>500 - Internal server error</h1>
+<h1><?php echo $page['title']; ?></h1>
+<p><?php echo _('Something went wrong with our server.'); ?></p>
 
-{include 'foot.html'}
+<?php include('foot.html'); ?>

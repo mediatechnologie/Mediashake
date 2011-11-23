@@ -1,0 +1,194 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mediashake\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-23 18:17+0100\n"
+"PO-Revision-Date: 2011-11-23 18:19+0100\n"
+"Last-Translator: Duckson <duckson@liberator>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../classes/Site.class.php:85
+msgid "Showcase"
+msgstr "Nieuw en noemenswaardig"
+
+#: ../classes/Site.class.php:86
+msgid "People"
+msgstr "Mensen"
+
+#: ../classes/Site.class.php:93
+msgid "Upload"
+msgstr "Uploaden"
+
+#: ../classes/Site.class.php:94
+msgid "Logout"
+msgstr "Uitloggen"
+
+#: ../classes/Site.class.php:383
+msgid "Page not found"
+msgstr "Pagina niet gevonden"
+
+#: ../classes/Site.class.php:389
+msgid "Forbidden"
+msgstr "Verboden"
+
+#: ../classes/Site.class.php:395
+msgid "Internal server error"
+msgstr "Interne serverfout"
+
+#: ../classes/Site.class.php:421
+msgid "Something is wrong with the template!"
+msgstr "Er is iets mis met het sjabloon!"
+
+#: ../html/loginform.html:2
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: ../html/loginform.html:3
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: ../html/loginform.html:4
+msgid "Log in"
+msgstr "Inloggen"
+
+#: ../html/navigation.html:8
+msgid "All"
+msgstr "Alles"
+
+#: ../html/navigation.html:9
+msgid "Static"
+msgstr "Statisch"
+
+#: ../html/navigation.html:10
+msgid "Motion"
+msgstr "Bewegend"
+
+#: ../html/navigation.html:11
+msgid "Interactive"
+msgstr "Interactief"
+
+#: ../html/navigation.html:12
+msgid "Culture"
+msgstr "Cultuur"
+
+#: ../html/searchform.html:2
+msgid "Search…"
+msgstr "Zoek..."
+
+#: ../html/searchform.html:3
+msgid "Search"
+msgstr "Zoeken"
+
+#: ../html/pages/403.html:4
+msgid "You're not allowed to see that!"
+msgstr "Dat mag je niet zien!"
+
+#: ../html/pages/404.html:4
+msgid "The page you are looking for could not be found."
+msgstr "De pagina waar je naar zocht kon niet worden gevonden."
+
+#: ../html/pages/500.html:4
+msgid "Something went wrong with our server."
+msgstr "Er is iets mis gegaan met het onze server!"
+
+#: ../html/pages/error.html:4
+msgid "Something went wrong!"
+msgstr "Er is iets mis gegaan!"
+
+#: ../html/pages/landing.html:13
+msgid "Ahoj stranger!"
+msgstr "Hallo vreemdeling!"
+
+#: ../html/pages/landing.html:14
+msgid "You currently need to be invited for an account."
+msgstr "Momenteel moet je worden uitgenodigd voor een account."
+
+#: ../html/pages/landing.html:21
+msgid "First Name"
+msgstr "Voornaam"
+
+#: ../html/pages/landing.html:25
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: ../html/pages/landing.html:29
+msgid "Your Email"
+msgstr "Je e-mail"
+
+#: ../html/pages/landing.html:33
+msgid "Re-enter Email"
+msgstr "Nogmaals e-mail"
+
+#: ../html/pages/landing.html:37
+msgid "New Password"
+msgstr "Nieuw wachtwoord"
+
+#: ../html/pages/landing.html:41
+msgid "Gender"
+msgstr "Geslacht"
+
+#: ../html/pages/landing.html:45
+msgid "School"
+msgstr "School"
+
+#: ../html/pages/landing.html:56
+msgid "Request an invitation"
+msgstr "Verzoek een uitnodiging"
+
+#: ../html/pages/upload.html:6
+msgid "Upload new work"
+msgstr "Nieuw werk uploaden"
+
+#: ../html/pages/upload.html:10
+msgid "Image"
+msgstr "Beeld"
+
+#: ../html/pages/upload.html:11
+msgid "Video"
+msgstr "Video"
+
+#: ../html/pages/upload.html:12
+msgid "Website"
+msgstr "Website"
+
+#: ../html/pages/upload.html:13
+msgid "Document"
+msgstr "Document"
+
+#: ../html/pages/upload.html:16
+msgid "Title"
+msgstr "Titel"
+
+#: ../html/pages/upload.html:17
+msgid "Description (min. 75 characters)"
+msgstr "Beschrijving (min. 75 karakters)"
+
+#: ../html/pages/upload.html:23
+msgid "Youtube or Vimeo URL"
+msgstr "Youtube of Vimeo URL"
+
+#: ../html/pages/upload.html:26
+msgid "Website URL"
+msgstr "Website URL"
+
+#: ../html/pages/work.html:41
+msgid "Comments"
+msgstr "Reacties"
+
+#: ../html/pages/work.html:50
+#, php-format
+msgid "By %s, posted on %s."
+msgstr "Door %s, geplaats op %s."
+
+#: ../html/pages/work.html:52
+msgid "Description"
+msgstr "Beschrijving"
+
+#~ msgid "Error"
+#~ msgstr "Fout"
