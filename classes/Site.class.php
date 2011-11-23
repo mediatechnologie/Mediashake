@@ -135,6 +135,9 @@ class Site
 				));
 				$this->title = $wk['title'];
 				$this->view->assign('work', $wk);
+				// Comments
+				$comments = $this->wf->fetchComments($this->path[1]);
+				$this->view->assign('comments', $comments);
 				break;
 			}
 			case 'landing':
@@ -190,6 +193,9 @@ class Site
 		
 		if(empty($path[0]))
 			$path[0] = '';
+		
+		// Write path to a property for later use in class
+		$this->path = $path;
 		
 		// Check if an action should be performed first
 		if($path[0] == 'action')
@@ -276,6 +282,11 @@ class Site
 			{
 				$this->uploadWork();
 				$this->page = 'showcase';
+				break;
+			}
+			case 'comment':
+			{
+				$this->wf->addComment( $this->path[2], $_POST['comment'] );
 				break;
 			}
 		}

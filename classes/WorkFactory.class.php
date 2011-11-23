@@ -177,4 +177,38 @@ class WorkFactory
 	{
 		return new Work;
 	}
+	
+	/**
+	 * Adds a comment to the database
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function addComment($work, $comment)
+	{
+		if($comment != '')
+		{
+			$author = $_SESSION['user']['id'];
+			$this->db->query("INSERT INTO `comments` VALUES (NULL, '$work', '$author', '$comment', NOW());");
+		}
+		
+		header('location: '.SITE_URL.'/work/'.$work);
+	}
+	
+	/**
+	 * Fetches all comments for certain work (by work.id)
+	 * 
+	 * @access public
+	 * @return array
+	 */
+	public function fetchComments($id)
+	{
+		$sql = "SELECT * FROM `comments` INNER JOIN accounts ON comments.author=accounts.id WHERE `work` = '$id'";
+
+		if($result = $this->db->query($sql))
+		{
+			$comments = $result->fetchAll(PDO::FETCH_ASSOC);
+		}
+		return $comments;
+	}
 }

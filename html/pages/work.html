@@ -17,7 +17,19 @@
 		
 		<div class="box">
 				<h2>Comments</h2>
-				-
+				<form id="addcomment" action="action/comment/{$work.id}" method="post">
+						<img src="https://graph.facebook.com/{$user.facebook}/picture"/>
+						<textarea name="comment"></textarea>
+						<input type="submit" value="Comment">
+				</form>
+				<ol id="comments">
+						{foreach $comments as $comment}
+						<li>
+						<img src="https://graph.facebook.com/{$comment.facebook}/picture"/>
+								<p class="author">{$comment.firstname} {$comment.lastname}</p>{$comment.comment}
+						</li>
+						{/foreach}
+				</ol>
 		</div>
 </div>
 

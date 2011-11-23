@@ -168,7 +168,7 @@ a{
 				background-color: #181818;
 				box-shadow: 0px 0px 1px 1px #1f1f1f;
 				color: #e6e6e6;
-				padding: 5px;
+				padding: 10px;
 				width: 100%;
 		}
 		
@@ -322,7 +322,7 @@ a{
 		color: #ccc;
 }
 
-		#right-column h2{
+		h2{
 				margin: 0px;
 				font-weight: normal;
 		}
@@ -450,11 +450,19 @@ a{
 				float: left;
 		}
 		
+				#work-left-column .box:last-child{
+						width: 720px;
+				}
+		
 		#work-right-column{
 				position: absolute;
 				right: 0px;
 				left: 760px;
 		}
+		
+				#work-right-column .box{
+						width: 400px;
+				}
 		
 		#work-right-column h2{
 				font-weight: normal;
@@ -464,3 +472,53 @@ a{
 		#work_image{
 				width: 740px;
 		}
+		
+				#addcomment{
+				padding-left: 60px;
+				margin-bottom: 20px;
+		}
+		
+				#addcomment img{
+						position: absolute;
+						left: 10px;
+				}
+		
+				#addcomment textarea{
+						background-color: #222;
+						border: solid 1px #111;
+						color: inherit;
+						font-family: inherit;
+						
+						overflow-x: hidden;
+						overflow-y: hidden;
+						padding: 5px;
+						outline: none;
+						height: 38px;
+						width: 647px;
+						max-width: 647px;
+				}
+				
+				#addcomment input[type="submit"]{
+						margin-top: 5px;
+						border: solid 1px #0A0A0A;
+						background-color: #111;
+						color: #AAA;
+						padding: 5px 15px 5px 15px;
+						cursor: pointer;
+				}
+				
+				#comments li{
+						padding-left: 60px;
+						min-height: 50px;
+						margin-bottom: 10px;
+						
+				}
+				
+						#comments li img{
+								position: absolute;
+								left: 10px;
+						}
+						
+						#comments li .author{
+								font-weight: bold;
+						}
