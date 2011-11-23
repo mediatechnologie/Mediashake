@@ -4,7 +4,7 @@
 		<div class="box nopadding">
 		
 		{if $work.type == 0}
-			<a href="{$work.filename}"><img src="{$work.filename}" alt="{$work.title}"/></a>
+			<a href="{$work.filename}"><img src="{$work.filename}" alt="{$work.title}" id="work_image"/></a>
 		{elseif $work.type == 2}
 			{if $work.filename|strpos:"youtube" !== false}
 			<iframe width="740" height="555" src="https://www.youtube.com/embed/{$work.filename|substr:8}?hd=1" frameborder="0" allowfullscreen></iframe>
