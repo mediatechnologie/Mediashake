@@ -20,10 +20,6 @@ set_include_path(
 	PS .
 	$includes_directory .
 	PS .
-	SMARTY_SYSPLUGINS_DIR .
-	PS .
-	SMARTY_PLUGINS_DIR .
-	PS .
 	get_include_path()
 );
 unset( $classes_directory, $includes_directory );
