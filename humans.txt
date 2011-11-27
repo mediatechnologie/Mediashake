@@ -1,0 +1,13 @@
+/* TEAM */
+	Location: Amsterdam
+
+/* THANKS */
+	
+
+/* SITE */
+	Doctype: HTML 5
+	Standards: CSS 2
+	Language: English / Dutch
+	Components: jQuery
+	IDE: Coda, Komodo
+	Software: Git, Github
