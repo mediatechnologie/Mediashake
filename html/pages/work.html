@@ -45,7 +45,7 @@ elseif($work['type'] == 3)
 						<input type="submit" value="<?php echo _('Comment'); ?>">
 				</form>
 				<ol id="comments">
-						<?php foreach($comments as $comment): ?>
+						<?php if(!empty($comments)) foreach($comments as $comment): ?>
 						<li>
 						<img src="https://graph.facebook.com/<?php echo $comment['facebook']; ?>/picture"/>
 								<p class="author"><?php echo $comment['firstname'].' '.$comment['lastname']; ?></p><?php echo $comment['comment']; ?>
