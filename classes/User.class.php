@@ -4,22 +4,25 @@
  */
 class User
 {
-	public $username;
-	public $firstname;
-	public $lastname;
+	protected $username;
+	protected $firstname;
+	protected $lastname;
 	
-	public $gender;
+	protected $gender;
 	
-	public $location;
-	public $school;
+	protected $location;
+	protected $school;
 	
-	public $facebook;
-	public $twitter;
-	public $youtube;
-	public $vimeo;
+	/*
+	 * Social stuff
+	 */
+	protected $facebook;
+	protected $twitter;
+	protected $youtube;
+	protected $vimeo;
 	
-	public $joined;
-	public $lastlogin;
+	protected $joined;
+	protected $lastlogin;
 	
 	/**
 	 * db
@@ -32,6 +35,28 @@ class User
 	public function __construct()
 	{
 		$this->db = new Database;
+	}
+	
+	public function getArray()
+	{
+		return array(
+			'username' => $this->username,
+			'firstname' => $this->firstname,
+			'lastname' => $this->lastname,
+			
+			'gender' => $this->gender,
+			
+			'location' => $this->location,
+			'school' => $this->school,
+			
+			'facebook' => $this->facebook,
+			'twitter' => $this->twitter,
+			'youtube' => $this->youtube,
+			'vimeo' => $this->vimeo,
+			
+			'joined' => $this->joined,
+			'lastlogin' => $this->lastlogin
+		);
 	}
 	
 	/**
@@ -47,7 +72,8 @@ class User
 		
 		$password = md5($password);
 		
-		$sql = 'SELECT * FROM `accounts` WHERE `username` = :un AND `password` = :pw LIMIT 1';
+		$sql = 'SELECT * FROM `accounts`
+				WHERE `username` = :un AND `password` = :pw LIMIT 1';
 		$st = $this->db->prepare($sql);
 		$st->bindParam(':un', $username);
 		$st->bindParam(':pw', $password);
@@ -59,14 +85,12 @@ class User
 			// Remove the password from the userdata, just to be on the safe side.
 			unset($userdata['password']);
 			$_SESSION['user'] = $userdata;
-			
-			header('Location: '.SITE_URL.'/showcase');
+			header('Location: '.SITE_URL);
 			return true;
 		}
 		else
 		{
 			throw new Exception('Login failed.');
-			header('Location: '.SITE_URL.'/error/login');
 			return false;
 		}
 	}
@@ -83,9 +107,22 @@ class User
 		header('Location: '.SITE_URL);
 	}
 	
-	public function __clone()
+	public function __get($prop)
 	{
+		return $this->$prop;
+	}
 	
+	public function __set($prop, $val)
+	{
+		if(isset($this->$prop) and property_exists($this, $prop))
+		{
+			$this->$prop = $val;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	public function __destruct()
