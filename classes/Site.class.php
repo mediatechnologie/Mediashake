@@ -261,6 +261,14 @@ class Site
 	{
 		switch($action)
 		{
+			case 'register':
+				$user_data = $_POST;
+				$user = new User;
+				if( $user->register($user_data) )
+					return true;
+				else
+					return false;
+				break;
 			case 'login':
 			{
 				$user = new User;

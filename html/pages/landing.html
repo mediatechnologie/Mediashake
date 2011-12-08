@@ -13,9 +13,9 @@
 	<h2><?php echo _('Ahoj stranger!'); ?></h2>
 	<h3><?php echo _('You currently need to be invited for an account.'); ?></h3>
 	<hr/>
-	<p>Are you in the DaVinci exchange programme and are you a student at Mediacollege Amsterdam, Filmov&aacute; &#352;kola or Olav Duun? You don't need an invitation and you can get an account by filling in this form.</p>
+	<p>Are you in the DaVinci exchange programme and are you a student or teacher at Mediacollege Amsterdam, Filmov&aacute; &#352;kola or Olav Duun? You don't need an invitation and you can get an account by filling in this form.</p>
 	<hr/>
-	<form>
+	<form method="post" action="action/register">
 		<table>
 			<tr>
 				<td><?php echo _('First Name'); ?></td>
@@ -23,23 +23,32 @@
 			</tr>
 			<tr>
 				<td><?php echo _('Last Name'); ?></td>
-				<td><input type="text" name="firstname"/></td>
+				<td><input type="text" name="lastname"/></td>
 			</tr>
 			<tr>
 				<td><?php echo _('Your Email'); ?></td>
-				<td><input type="text" name="firstname"/></td>
+				<td><input type="email" name="email"/></td>
 			</tr>
 			<tr>
-				<td><?php echo _('Re-enter Email'); ?></td>
-				<td><input type="text" name="firstname"/></td>
+				<td><?php echo _('Username'); ?></td>
+				<td><input type="text" name="username"/></td>
 			</tr>
 			<tr>
 				<td><?php echo _('New Password'); ?></td>
-				<td><input type="text" name="firstname"/></td>
+				<td><input type="password" name="password"/></td>
 			</tr>
 			<tr>
 				<td><?php echo _('Gender'); ?></td>
-				<td><input type="text" name="firstname"/></td>
+				<td>
+					<select name="gender">
+						<option value="f">Female</option>
+						<option value="m">Male</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><?php echo _('Location'); ?></td>
+				<td><input type="text" name="location"/></td>
 			</tr>
 			<tr>
 				<td><?php echo _('School'); ?></td>
