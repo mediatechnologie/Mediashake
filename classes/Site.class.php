@@ -28,15 +28,16 @@ class Site
 	 */
 	protected $wf;
 	
+	protected $user;
+	
 	/**
 	 * page
 	 * the page type that should be served
-	 * (default value: 'landing')
 	 * 
 	 * @var string
 	 * @access protected
 	 */
-	protected $page = 'landing';
+	protected $page;
 	
 	/**
 	 * action
@@ -63,6 +64,7 @@ class Site
 		$this->db = new Database;
 		$this->view = new MView;
 		$this->wf = new WorkFactory;
+		$this->user = new User;
 		
 		// Determine which page should be served
 		$this->determinePage();
@@ -76,26 +78,32 @@ class Site
 	 */
 	protected function getNavigation()
 	{
-		$navigation = array();
+		$navigation = array(
+			'showcase'		=>	_( 'Showcase' ),
+			'people'		=>	_( 'People' ),
+		);
 		
+		// Add navigation items if the user is logged in
 		if(!empty($_SESSION['user']))
 		{
 			// Navigation if a user is logged in
-			$navigation = array(
-				'showcase'		=>	_( 'Showcase' ),
-				'people'		=>	_( 'People' ),
-				
+			$navigation = array_merge($navigation, array(
 			//	'groups'		=>	_( 'Groups' ),
 			//	'converse'		=>	_( 'Converse' ),
 			//	'collaborate'	=>	_( 'Collaborate' ),
 			//	'settings'		=>	_( 'Settings' ),
 				
 				'upload'		=>	_( 'Upload' ),
-				'action/logout'	=>	_( 'Logout' )
-			);
+				'profile/'		=>	_( 'Profile' ),
+				'action/logout'	=>	_( 'Log out' )
+			));
 		}
+		// Or when noboby is logged in
 		else
 		{
+			$navigation = array_merge($navigation, array(
+				'landing'		=>	_( 'Sign up' )
+			));
 		}
 		
 		return $navigation;
@@ -112,9 +120,7 @@ class Site
 		$sql = 'SELECT * FROM schools ORDER BY name';
 		$statement = $this->db->query($sql);
 		
-		$schools = $statement->fetchAll(PDO::FETCH_ASSOC);
-		
-		return $schools;
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 	
 	/**
@@ -138,7 +144,8 @@ class Site
 				// Comments
 				$comments = $this->wf->fetchComments($this->path[1]);
 				$this->view->assign('comments', $comments);
-
+				
+				// Work
 				$this->view->setTitle($wk['title']);
 				$this->view->assign('work', $wk);
 				break;
@@ -148,6 +155,20 @@ class Site
 			{
 				$wk = $this->wf->fetchAll();
 				$this->view->assign('work', $wk);
+				break;
+			}
+			case 'people':
+			{
+				$uf = new UserFactory;
+				$this->view->assign('users', $uf->fetchAll());
+				break;
+			}
+			case 'user':
+			{
+				$uf = new UserFactory;
+				if(!isset($this->path[1]))
+					throw new Exception(404);
+				$this->view->assign('profile', $uf->fetch(array('username' => $this->path[1])));
 				break;
 			}
 			case 'explore':
@@ -194,60 +215,35 @@ class Site
 		$path = array_filter($path);
 		$path = array_values($path);
 		
-		if(empty($path[0]))
-			$path[0] = '';
-		
 		// Write path to a property for later use in class
 		$this->path = $path;
 		
 		// Check if an action should be performed first
-		if($path[0] == 'action')
+		if(!empty($path[0]) and $path[0] == 'action')
 		{
 			$this->performAction($path[1]);
+			$page = 'action';
 		}
-		elseif(empty($_SESSION['user']))
+		// Send new visitors to the landing page
+		elseif(empty($path[0]) and empty($_SESSION['user']))
 		{
-			// User isn't logged in, go to landing page
-			$this->page = 'landing';
+			$page = 'landing';
+		}
+		// But send logged in visitors to the showcase
+		elseif(empty($path[0]) and is_array($_SESSION['user']))
+		{
+			$page = 'showcase';
 		}
 		else
 		{
-			// User is logged in, see what page should be served
-			switch($path[0])
-			{
-				case '':
-				case 'showcase':
-					$this->page = 'showcase';
-					break;
-				case 'people':
-					$this->page = 'people';
-					break;
-				case 'user':
-					$this->page = 'profile';
-					break;
-				case 'converse':
-					$this->page = 'converse';
-					break;
-				case 'settings':
-					$this->page = 'settings';
-					break;
-				case 'upload':
-					$this->page = 'upload';
-					break;
-				case 'work':
-					$this->page = 'work';
-					break;
-			}
-			
-			// If no page has been set, the page wasn't allowed, so show a 404 error
-			if(!isset($this->page))
-				$this->page = '404';
-				
-			// Make path a class property for later use
-			$this->path = $path;
+			$page = $path[0];
 		}
 		
-		return $this->page;
+		// Make path a class property for later use
+		$this->path = $path;
+		
+		$this->page = $page;
+		return $page;
 	}
 	
 	/**
@@ -261,10 +257,14 @@ class Site
 	{
 		switch($action)
 		{
+			case 'comment':
+			{
+				$this->wf->addComment( $this->path[2], $_POST['comment'] );
+				break;
+			}
 			case 'login':
 			{
-				$user = new User;
-				if( $user->login($_POST['username'], $_POST['password']) )
+				if( $this->user->login($_POST['username'], $_POST['password']) )
 					return true;
 				else
 					return false;
@@ -273,9 +273,11 @@ class Site
 			}
 			case 'logout':
 			{
-				$user = new User;
-				if( $user->logout() )
+				if( $this->user->logout() )
+				{
+					$this->user = new User;
 					return true;
+				}
 				else
 					return false;
 				
@@ -287,9 +289,9 @@ class Site
 				$this->page = 'showcase';
 				break;
 			}
-			case 'comment':
+			case 'register':
 			{
-				$this->wf->addComment( $this->path[2], $_POST['comment'] );
+				
 				break;
 			}
 		}
@@ -344,8 +346,8 @@ class Site
 				throw new Exception('Invalid upload type.');
 			}
 		}
-		$w->title = WorkFactory::sanitize($_POST['title']);
-		$w->description = WorkFactory::sanitize($_POST['description']);
+		$w->title = Database::sanitize($_POST['title']);
+		$w->description = Database::sanitize($_POST['description']);
 		$w->owner = $_SESSION['user']['id'];
 		$w->school = $school = $_SESSION['user']['school'];
 		
@@ -370,15 +372,9 @@ class Site
 		
 		try
 		{
-			// Head
 			$this->view->setTitle(ucfirst($this->page));
 			
-			// Body
 			$file = 'html/pages/'.$this->page.'.html';
-			
-			// See what page content we should get
-			// and assign it.
-			$this->assignContent();
 			
 			// Check if the template file exists,
 			// If it doesn't, throw a 404 exception
@@ -386,6 +382,10 @@ class Site
 			{
 				throw new Exception(404);
 			}
+			
+			// See what page content we should get
+			// and assign it.
+			$this->assignContent();
 		}
 		catch(Exception $e)
 		{
@@ -401,12 +401,19 @@ class Site
 				$file = 'html/pages/403.html';
 				$this->view->setTitle(_('Forbidden'));
 			}
+			elseif($e->getMessage() == 500)
+			{
+				header('HTTP/1.1 500 Forbidden');
+				$file = 'html/pages/500.html';
+				$this->view->setTitle(_('Internal server error'));
+			}
 			else
 			{
 				header('HTTP/1.1 500 Internal Server Error');
 				$file = 'html/pages/error.html';
-				$this->view->setTitle(_('Internal server error'));
+				$this->view->setTitle(_('Error'));
 				$page['content'] = $e->getMessage();
+				$this->view->assign('content', $e->getMessage());
 			}
 		}
 		

@@ -66,15 +66,21 @@ class WorkFactory
 		$args = array_merge($defaults, $args);
 		extract($args);
 		
-		$sql = 'SELECT * FROM work INNER JOIN accounts ON work.owner = accounts.id WHERE work.'.$type.' = :id LIMIT 1';
+		$sql = 'SELECT work.id, type, title, work.description filename, rating, votes, views, date,
+				accounts.username, accounts.firstname, accounts.lastname
+				FROM work INNER JOIN accounts ON work.owner = accounts.id
+				WHERE work.'.Database::sanitize($type).' = :id
+				LIMIT 1';
+		
 		$st = $this->db->prepare($sql);
 		//$st->bindParam(':type', $type);
 		$st->bindParam(':id', $id);
 		
 		if(! $st->execute())
-		{
+			throw new Exception('Database query failed.');
+		
+		if($st->rowCount() == 0)
 			throw new Exception(404);
-		}
 		
 		switch($output_type)
 		{
@@ -154,19 +160,6 @@ class WorkFactory
 	}
 	
 	/**
-	 * sanitize function.
-	 * Sanitize user input.
-	 * @access public
-	 * @static
-	 * @param mixed $input
-	 * @return void
-	 */
-	public static function sanitize($input)
-	{
-		return htmlentities($input, ENT_QUOTES | ENT_HTML5, CHARSET);
-	}
-	
-	/**
 	 * create function.
 	 * 
 	 * @access public
@@ -182,17 +175,33 @@ class WorkFactory
 	 * Adds a comment to the database
 	 * 
 	 * @access public
-	 * @return void
+	 * @return bool
 	 */
 	public function addComment($work, $comment)
 	{
-		if($comment != '')
-		{
-			$author = $_SESSION['user']['id'];
-			$this->db->query("INSERT INTO `comments` VALUES (NULL, '$work', '$author', '$comment', NOW());");
-		}
+		if($comment == '')
+			return false;
 		
-		header('location: '.SITE_URL.'/work/'.$work);
+		if(!is_int($work))
+			return false;
+		
+		if(!is_int($_SESSION['user']['id']))
+			throw new Exception('Invalid user id.');
+			
+		$st = $this->db->prepare('INSERT INTO `comments` ( work, author, comment ) VALUES ( :work, :author, :comment ');
+		
+		$st->bindParam(':work', $work);
+		$st->bindParam(':author', $_SESSION['user']['id']);
+		$st->bindValue(':content', Database::sanitize($comment));
+		
+		if($st->execute())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	/**
@@ -203,12 +212,20 @@ class WorkFactory
 	 */
 	public function fetchComments($id)
 	{
-		$sql = "SELECT * FROM `comments` INNER JOIN accounts ON comments.author=accounts.id WHERE `work` = '$id'";
-
-		if($result = $this->db->query($sql))
+		if(!is_int($id) or !is_numeric($id))
+			return false;
+			
+		$sql = 'SELECT * FROM `comments` INNER JOIN accounts ON comments.author=accounts.id WHERE `work` = :id';
+		$st = $this->db->prepare($sql);
+		$st->bindParam(':id', $id);
+		
+		if($st->execute())
 		{
-			$comments = $result->fetchAll(PDO::FETCH_ASSOC);
+			return $st->fetchAll(PDO::FETCH_ASSOC);
 		}
-		return $comments;
+		else
+		{
+			return false;
+		}
 	}
 }

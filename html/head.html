@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en">
+<html>
 
 <head>
 	<base href="<?php echo $general['url']; ?>" />
@@ -26,13 +26,13 @@
 				<img src="/images/logo.png" alt="<?php echo $general['name']; ?> Logo" id="logo"/>
 			</a>			
 			<?php
-			if($page['title'] == 'Landing')
+			include('navigation.html');
+			if(empty($_SESSION['user']))
 			{
 				include('loginform.html'); 
 			}
 			else
 			{
-				include('navigation.html');
 				include('searchform.html');
 			}
 			?>

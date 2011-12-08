@@ -1,60 +1,35 @@
-<?php include('head.html'); ?>
-			<ol id="list" class="masonry">
-				<li id="user_1">
-					<img src="images/users/1_220x250.jpg"/>
-					<h3 class="title"><a href="user/farid">Farid el Nasire</a></h3>
-					<div class="description">
-						<p>Mediacollege Amsterdam</p>
-						<p>4 uploads</p>
-					</div>
-				</li>
-				<li id="user_2">
-					<img src="images/users/2_220x250.jpg"/>
-					<h3 class="title"><a href="user/robert">Robert Ronquillo</a></h3>
-					<div class="description">
-						<p>Mediacollege Amsterdam</p>
-						<p>4 uploads</p>
-					</div>
-				</li>
-				<li id="user_3">
-					<img src="images/users/3_220x250.jpg"/>
-					<h3 class="title"><a href="user/mathijs">Mathijs Bernson</a></h3>
-					<div class="description">
-						<p>Mediacollege Amsterdam</p>
-						<p>4 uploads</p>
-					</div>
-				</li>
-				<li id="user_4">
-					<img src="images/users/4_220x250.jpg"/>
-					<h3 class="title"><a href="user/dennis">Dennis de Vulder</a></h3>
-					<div class="description">
-						<p>Mediacollege Amsterdam</p>
-						<p>4 uploads</p>
-					</div>
-				</li>
-				<li id="user_5">
-					<img src="images/users/5_220x250.jpg"/>
-					<h3 class="title"><a href="user/mitch">Mitch van der Haar</a></h3>
-					<div class="description">
-						<p>Mediacollege Amsterdam</p>
-						<p>4 uploads</p>
-					</div>
-				</li>
-				<li id="user_6">
-					<img src="images/users/6_220x250.jpg"/>
-					<h3 class="title"><a href="user/roel">Roel Wijte</a></h3>
-					<div class="description">
-						<p>Mediacollege Amsterdam</p>
-						<p>4 uploads</p>
-					</div>
-				</li>
-				<li id="user_7">
-					<img src="images/users/7_220x250.jpg"/>
-					<h3 class="title"><a href="user/roel">Marvin van Kalsbeek</a></h3>
-					<div class="description">
-						<p>Mediacollege Amsterdam</p>
-						<p>4 uploads</p>
-					</div>
-				</li>
-			</ol>
-<?php include('foot.html'); ?>
+<?php include('head.html');
+
+if(isset($users)):
+
+$list = '';
+foreach($users as $user)
+{
+	if(isset($user['firstname']) and isset($user['lastname']))
+		$un = $user['firstname'].' '.$user['lastname'];
+	else
+		$un = $user['username'];
+	
+	// For clarity, "name" is the school's name because of a join.
+	if(isset($user['name']))
+		$user['schoolname'] = $user['name'];
+	
+	$list .= '<li id="'.$user['id'].'">
+		<img src="images/users/1_220x250.jpg"/>
+		<h3 class="title"><a href="user/'.urlencode($user['username']).'">'.$un.'</a></h3>
+		<div class="description">
+			<p>'.$user['schoolname'].'</p>
+			<p>Lives in '.$user['location'].'</p>
+			<p>4 uploads</p>
+		</div>
+	</li>';
+}
+echo '<ol id="list" class="masonry">'.$list.'</ol>';
+
+else:
+
+echo '<p>No users found.</p>';
+
+endif;
+
+include('foot.html'); ?>
