@@ -60,6 +60,41 @@ class User
 	}
 	
 	/**
+	 * Register function.
+	 * Creates a user account
+	 * @access public
+	 * @param array $user_data
+	 * @return int
+	 */
+	
+	public function register($user_data)
+	{
+		extract($user_data);
+		$md5_password = md5($password);
+		
+		$sql = "INSERT INTO `accounts` VALUES (NULL, :username, :password, :email, :firstname, :lastname, :gender, :location, :school, '', '', '', '', NOW(), '')";
+		$st = $this->db->prepare($sql);
+		$st->bindParam(':username', $username);
+		$st->bindParam(':password', $md5_password);
+		$st->bindParam(':email', $email);
+		$st->bindParam(':firstname', $firstname);
+		$st->bindParam(':lastname', $lastname);
+		$st->bindParam(':gender', $gender);
+		$st->bindParam(':location', $location);
+		$st->bindParam(':school', $school);
+		
+		if( $st->execute() )
+		{
+			$this->login($username, $password);
+		}
+		else
+		{
+			header('location: error');
+			return false;
+		}
+	}
+	
+	/**
 	 * login function.
 	 * Log a user in.
 	 * @access public
