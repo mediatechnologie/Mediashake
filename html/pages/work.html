@@ -7,7 +7,7 @@
 // Image
 if($work['type'] == 0)
 {
-	echo '<a href="/'.$work['filename'].'"><img src="/'.$work['filename'].'" alt="'.$work['title'].'" id="work_image" /></a>';
+	echo '<a href="/'.$work['filename'].'"><img src="'.$work['filename'].'" alt="'.$work['title'].'" id="work_image" /></a>';
 }
 // Video
 elseif($work['type'] == 2)
@@ -39,8 +39,8 @@ elseif($work['type'] == 3)
 		
 		<div class="box">
 				<h2><?php echo _('Comments'); ?></h2>
-				<form id="addcomment" action="action/comment/<?php echo $work['id']; ?>" method="post">
-						<img src="https://graph.facebook.com/<?php echo $user['facebook']; ?>/picture"/>
+				<form id="addcomment" action="/action/comment/<?php echo $work['id']; ?>" method="post">
+						<img src=""/>
 						<textarea name="comment"></textarea>
 						<input type="submit" value="<?php echo _('Comment'); ?>">
 				</form>
@@ -59,10 +59,11 @@ elseif($work['type'] == 3)
 		<div class="box">
 				<h2><a href="/work/<?php echo $work['id']; ?>"><?php echo $work['title']; ?></a></h2>
 				
-				<p><em><?php echo sprintf(_('By %s, posted on %s.'), $work['username'], date('j F Y', strtotime($work['date']))); ?></em></p>
+				<?php $userlink = '<a href="/user/'.$work['username'].'">'.$work['username'].'</a>'; ?>
+				<p><em><?php echo sprintf(_('By %s, posted on %s.'), $userlink, date('j F Y', strtotime($work['date']))); ?></em></p>
 				
 				<h3><?php echo _('Description'); ?></h3>
-				<p><?php echo urldecode($work['description']); ?></p>
+				<p><?php if(isset($work['description'])) echo urldecode($work['description']); else echo _('No description available.'); ?></p>
 		</div>
 </div>
 

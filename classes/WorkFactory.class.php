@@ -66,11 +66,11 @@ class WorkFactory
 		$args = array_merge($defaults, $args);
 		extract($args);
 		
-		$sql = 'SELECT work.id, type, title, work.description filename, rating, votes, views, date,
-				accounts.username, accounts.firstname, accounts.lastname
-				FROM work INNER JOIN accounts ON work.owner = accounts.id
-				WHERE work.'.Database::sanitize($type).' = :id
-				LIMIT 1';
+		$sql = 'SELECT work.id, type, title, filename, work.description, rating, votes, views, date,
+				accounts.username, firstname, lastname
+				FROM work
+				LEFT JOIN accounts ON work.owner = accounts.id
+				WHERE work.'.Database::sanitize($type).' = :id';
 		
 		$st = $this->db->prepare($sql);
 		//$st->bindParam(':type', $type);

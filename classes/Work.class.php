@@ -120,7 +120,7 @@ class Work extends Page
 		$ext = substr($filename, strpos($filename,'.') + 1, strlen($filename) - 1);
 
 		// Check if the filetype is allowed, if not DIE and inform the user.
-		if(!in_array($ext, $allowed_filetypes))
+		if(!in_array(strtolower($ext), $allowed_filetypes))
 			throw new Exception('The file you attempted to upload ('.$ext.') is not allowed.');
 	
 		// Now check the filesize, if it is too large then DIE and inform the user.

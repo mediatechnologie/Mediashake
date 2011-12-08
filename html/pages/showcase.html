@@ -1,11 +1,8 @@
 <?php include('head.html'); ?>
 
 <ol id="list" class="masonry">
-<?php
-$iteration = 1;
-
-foreach($work as $item): ?>
-<li id="item_<?php echo $iteration; ?>">
+<?php foreach($work as $item): ?>
+<li id="item_<?php echo $item['id']; ?>">
 	<div class="thumbnail-shadow"></div>
 	
 <?php
@@ -40,7 +37,6 @@ elseif($item['type'] == 3)
 }
 
 $date = date('j M, Y', strtotime($item['date']));
-$iteration++;
 ?>
 	
 	<h3 class="title"><a href="work/<?php echo $item['id']; ?>"><?php echo $item['title']; ?></a></h3>
