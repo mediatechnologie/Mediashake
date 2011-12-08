@@ -9,4 +9,4 @@ html/compile/*
 
 uploads/*
 
-error.log
+logs/*
