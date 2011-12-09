@@ -19,7 +19,7 @@ foreach($users as $user)
 		<h3 class="title"><a href="user/'.urlencode($user['username']).'">'.$un.'</a></h3>
 		<div class="description">
 			<p>'.$user['schoolname'].'</p>
-			<p>Lives in '.$user['location'].'</p>
+			<p>'.sprintf(_('Lives in %s'), $user['location']).'</p>
 			<p>4 uploads</p>
 		</div>
 	</li>';
@@ -28,7 +28,7 @@ echo '<ol id="list" class="masonry">'.$list.'</ol>';
 
 else:
 
-echo '<p>No users found.</p>';
+echo '<p>'._('No users found.').'</p>';
 
 endif;
 

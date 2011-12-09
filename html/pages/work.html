@@ -41,8 +41,8 @@ elseif($work['type'] == 3)
 				<h2><?php echo _('Comments'); ?></h2>
 				<form id="addcomment" action="/action/comment/<?php echo $work['id']; ?>" method="post">
 						<img src=""/>
-						<textarea name="comment"></textarea>
-						<input type="submit" value="<?php echo _('Comment'); ?>">
+						<textarea name="comment" placeholder="<?php echo _('Comment...'); ?>"></textarea>
+						<input type="submit" value="<?php echo _('Submit'); ?>">
 				</form>
 				<ol id="comments">
 						<?php if(!empty($comments)) foreach($comments as $comment): ?>

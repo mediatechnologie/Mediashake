@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mediashake\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-09 15:39+0100\n"
-"PO-Revision-Date: 2011-12-09 15:39+0100\n"
+"POT-Creation-Date: 2011-12-09 16:03+0100\n"
+"PO-Revision-Date: 2011-12-09 16:03+0100\n"
 "Last-Translator: Duckson <duckson@liberator>\n"
 "Language-Team: Mediashake Amsterdam\n"
 "MIME-Version: 1.0\n"
@@ -200,6 +200,15 @@ msgstr "School"
 msgid "Request an invitation"
 msgstr "Verzoek een uitnodiging"
 
+#: ../html/pages/people.html:22
+#, php-format
+msgid "Lives in %s"
+msgstr "Woont in %s"
+
+#: ../html/pages/people.html:31
+msgid "No users found."
+msgstr "Geen gebruikers gevonden."
+
 #: ../html/pages/upload.html:6
 msgid "Upload new work"
 msgstr "Nieuw werk uploaden"
@@ -240,9 +249,14 @@ msgstr "Website URL"
 msgid "Comments"
 msgstr "Reacties"
 
-#: ../html/pages/work.html:45
-msgid "Comment"
+#: ../html/pages/work.html:44
+#, fuzzy
+msgid "Comment..."
 msgstr "Reactie"
+
+#: ../html/pages/work.html:45
+msgid "Submit"
+msgstr "Verstuur"
 
 #: ../html/pages/work.html:63
 #, php-format
