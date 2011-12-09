@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mediashake\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-08 11:01+0100\n"
-"PO-Revision-Date: 2011-12-08 11:01+0100\n"
+"POT-Creation-Date: 2011-12-09 13:38+0100\n"
+"PO-Revision-Date: 2011-12-09 13:39+0100\n"
 "Last-Translator: Duckson <duckson@liberator>\n"
 "Language-Team: Mediashake Amsterdam\n"
 "MIME-Version: 1.0\n"
@@ -24,53 +24,41 @@ msgstr "Nieuw en noemenswaardig"
 msgid "People"
 msgstr "Mensen"
 
-#: ../classes/Site.class.php:96
+#: ../classes/Site.class.php:97
 msgid "Upload"
 msgstr "Uploaden"
 
-#: ../classes/Site.class.php:97
+#: ../classes/Site.class.php:98
 msgid "Profile"
 msgstr "Profiel"
 
-#: ../classes/Site.class.php:98
+#: ../classes/Site.class.php:99
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: ../classes/Site.class.php:105
+#: ../classes/Site.class.php:106
 msgid "Sign up"
 msgstr "Registreer"
 
-#: ../classes/Site.class.php:396
+#: ../classes/Site.class.php:406
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
 
-#: ../classes/Site.class.php:402
+#: ../classes/Site.class.php:412
 msgid "Forbidden"
 msgstr "Verboden"
 
-#: ../classes/Site.class.php:408
+#: ../classes/Site.class.php:418
 msgid "Internal server error"
 msgstr "Interne serverfout"
 
-#: ../classes/Site.class.php:414
+#: ../classes/Site.class.php:424
 msgid "Error"
 msgstr "Fout"
 
-#: ../classes/Site.class.php:443
+#: ../classes/Site.class.php:453
 msgid "Something is wrong with the template!"
 msgstr "Er is iets mis met het sjabloon!"
-
-#: ../html/foot.html:7
-msgid "About"
-msgstr "Over"
-
-#: ../html/foot.html:8
-msgid "FAQ"
-msgstr "Veelgestelde Vragen"
-
-#: ../html/foot.html:9
-msgid "Contact us"
-msgstr "Contact"
 
 #: ../html/loginform.html:2
 msgid "Username"
@@ -112,6 +100,26 @@ msgstr "Zoek..."
 msgid "Search"
 msgstr "Zoeken"
 
+#: ../html/action/login.html:6
+msgid "You are logged in!"
+msgstr "Je bent ingelogd!"
+
+#: ../html/action/login.html:10
+msgid "Login failed"
+msgstr "Login gefaald"
+
+#: ../html/action/login.html:11
+msgid "Please check if you filled in your username and password correctly."
+msgstr "Controleer alsjeblieft of je je gebruikersnaam en wachtwoord goed hebt ingevuld."
+
+#: ../html/action/logout.html:6
+msgid "You have logged out."
+msgstr "Je bent uitgelogd."
+
+#: ../html/action/logout.html:10
+msgid "Whoops, something went wrong."
+msgstr "Oeps, er is iets mis gegaan!"
+
 #: ../html/pages/403.html:4
 msgid "You're not allowed to see that!"
 msgstr "Dat mag je niet zien!"
@@ -148,10 +156,6 @@ msgstr "Achternaam"
 msgid "Your Email"
 msgstr "Je e-mail"
 
-#: ../html/pages/landing.html:33
-msgid "Re-enter Email"
-msgstr "Nogmaals e-mail"
-
 #: ../html/pages/landing.html:37
 msgid "New Password"
 msgstr "Nieuw wachtwoord"
@@ -160,11 +164,15 @@ msgstr "Nieuw wachtwoord"
 msgid "Gender"
 msgstr "Geslacht"
 
-#: ../html/pages/landing.html:45
+#: ../html/pages/landing.html:50
+msgid "Location"
+msgstr "Locatie"
+
+#: ../html/pages/landing.html:54
 msgid "School"
 msgstr "School"
 
-#: ../html/pages/landing.html:55
+#: ../html/pages/landing.html:64
 msgid "Request an invitation"
 msgstr "Verzoek een uitnodiging"
 
@@ -245,3 +253,14 @@ msgstr "Delen"
 msgid "Tags"
 msgstr "Labels"
 
+#~ msgid "About"
+#~ msgstr "Over"
+
+#~ msgid "FAQ"
+#~ msgstr "Veelgestelde Vragen"
+
+#~ msgid "Contact us"
+#~ msgstr "Contact"
+
+#~ msgid "Re-enter Email"
+#~ msgstr "Nogmaals e-mail"

@@ -8,7 +8,7 @@ if(is_array($_SESSION['user']))
 else
 {
 	echo '<h1>'._('Login failed').'</h1>
-			<p>Please check if you filled in your username and password correctly.</p>';
+			<p>'._('Please check if you filled in your username and password correctly.').'</p>';
 	include('loginform.html');
 }
 
