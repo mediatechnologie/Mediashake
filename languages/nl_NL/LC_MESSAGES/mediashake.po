@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mediashake\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-09 15:39+0100\n"
-"PO-Revision-Date: 2011-12-09 15:39+0100\n"
+"POT-Creation-Date: 2011-12-09 16:12+0100\n"
+"PO-Revision-Date: 2011-12-09 16:12+0100\n"
 "Last-Translator: Duckson <duckson@liberator>\n"
 "Language-Team: Mediashake Amsterdam\n"
 "MIME-Version: 1.0\n"
@@ -188,6 +188,14 @@ msgstr "Nieuw wachtwoord"
 msgid "Gender"
 msgstr "Geslacht"
 
+#: ../html/pages/landing.html:44
+msgid "Female"
+msgstr "Vrouwelijk"
+
+#: ../html/pages/landing.html:45
+msgid "Male"
+msgstr "Mannelijk"
+
 #: ../html/pages/landing.html:50
 msgid "Location"
 msgstr "Locatie"
@@ -199,6 +207,15 @@ msgstr "School"
 #: ../html/pages/landing.html:64
 msgid "Request an invitation"
 msgstr "Verzoek een uitnodiging"
+
+#: ../html/pages/people.html:22
+#, php-format
+msgid "Lives in %s"
+msgstr "Woont in %s"
+
+#: ../html/pages/people.html:31
+msgid "No users found."
+msgstr "Geen gebruikers gevonden."
 
 #: ../html/pages/upload.html:6
 msgid "Upload new work"
@@ -240,9 +257,13 @@ msgstr "Website URL"
 msgid "Comments"
 msgstr "Reacties"
 
+#: ../html/pages/work.html:44
+msgid "Comment..."
+msgstr "Reageer..."
+
 #: ../html/pages/work.html:45
-msgid "Comment"
-msgstr "Reactie"
+msgid "Submit"
+msgstr "Verstuur"
 
 #: ../html/pages/work.html:63
 #, php-format
