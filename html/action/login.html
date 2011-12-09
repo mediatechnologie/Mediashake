@@ -1,0 +1,16 @@
+<?php
+require('head.html');
+
+if(is_array($_SESSION['user']))
+{
+	echo '<h1>'._('You are logged in!').'</h1>';
+}
+else
+{
+	echo '<h1>'._('Login failed').'</h1>
+			<p>Please check if you filled in your username and password correctly.</p>';
+	include('loginform.html');
+}
+
+require('foot.html');
+?>

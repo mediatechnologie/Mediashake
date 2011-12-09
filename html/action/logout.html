@@ -1,0 +1,14 @@
+<?php
+require('head.html');
+
+if(empty($_SESSION['user']))
+{
+	echo '<h1>'._('You have logged out.').'</h1>';
+}
+else
+{
+	echo _('Whoops, something went wrong.');
+}
+
+require('foot.html');
+?>

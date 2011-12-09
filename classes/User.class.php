@@ -89,7 +89,6 @@ class User
 		}
 		else
 		{
-			header('location: error');
 			return false;
 		}
 	}
@@ -120,7 +119,7 @@ class User
 			// Remove the password from the userdata, just to be on the safe side.
 			unset($userdata['password']);
 			$_SESSION['user'] = $userdata;
-			header('Location: '.SITE_URL);
+			
 			return true;
 		}
 		else
@@ -138,8 +137,8 @@ class User
 	 */
 	public function logout()
 	{
-		session_destroy();
-		header('Location: '.SITE_URL);
+		unset($_SESSION['user']);
+		return;
 	}
 	
 	public function __get($prop)

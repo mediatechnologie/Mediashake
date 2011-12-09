@@ -87,6 +87,7 @@ class Site
 		if(!empty($_SESSION['user']))
 		{
 			// Navigation if a user is logged in
+			$un = $_SESSION['user']['username'];
 			$navigation = array_merge($navigation, array(
 			//	'groups'		=>	_( 'Groups' ),
 			//	'converse'		=>	_( 'Converse' ),
@@ -94,7 +95,7 @@ class Site
 			//	'settings'		=>	_( 'Settings' ),
 				
 				'upload'		=>	_( 'Upload' ),
-				'profile/'		=>	_( 'Profile' ),
+				'user/'.$un	=>	_( 'Profile' ),
 				'action/logout'	=>	_( 'Log out' )
 			));
 		}
@@ -264,7 +265,8 @@ class Site
 			}
 			case 'login':
 			{
-				if( $this->user->login($_POST['username'], $_POST['password']) )
+				if( isset($_POST['username']) and isset($_POST['password']) and
+					$this->user->login($_POST['username'], $_POST['password']) )
 					return true;
 				else
 					return false;
@@ -379,7 +381,10 @@ class Site
 		{
 			$this->view->setTitle(ucfirst($this->page));
 			
-			$file = 'html/pages/'.$this->page.'.html';
+			if($this->page == 'action')
+				$file = 'html/action/'.$this->path[1].'.html';
+			else
+				$file = 'html/pages/'.$this->page.'.html';
 			
 			// Check if the template file exists,
 			// If it doesn't, throw a 404 exception
