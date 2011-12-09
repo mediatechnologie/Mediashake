@@ -1,8 +1,10 @@
 <?php
 /**
  * UserFactory class.
+ * 
+ * @implements Factory
  */
-class UserFactory
+class UserFactory implements Factory
 {
 	/**
 	 * db
@@ -12,9 +14,9 @@ class UserFactory
 	 */
 	protected $db;
 	
-	public function __construct()
+	public function __construct(Database $db)
 	{
-		$this->db = new Database;
+		$this->db = $db;
 	}
 	
 	public function fetch($args = array())
@@ -105,7 +107,7 @@ class UserFactory
 		return;
 	}
 	
-	public function create()
+	public static function create()
 	{
 		return new User;
 	}

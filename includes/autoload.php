@@ -23,7 +23,7 @@ set_include_path(
 	get_include_path()
 );
 unset( $classes_directory, $includes_directory );
-spl_autoload_extensions( '.php, .inc.php, .class.php' );
+spl_autoload_extensions( '.php, .inc.php, .class.php, .interface.php' );
 spl_autoload_register();
 
 function linux_namespaces_autoload ( $class_name )

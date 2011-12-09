@@ -1,8 +1,10 @@
 <?php
 /**
  * WorkFactory class.
+ * 
+ * @implements Factory
  */
-class WorkFactory
+class WorkFactory implements Factory
 {
 	/**
 	 * db
@@ -12,9 +14,9 @@ class WorkFactory
 	 */
 	protected $db;
 	
-	public function __construct()
+	public function __construct(Database $db)
 	{
-		$this->db = new Database;
+		$this->db = $db;
 	}
 	
 	public function add($work)
