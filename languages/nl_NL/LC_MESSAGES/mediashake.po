@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mediashake\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-09 13:38+0100\n"
-"PO-Revision-Date: 2011-12-09 13:39+0100\n"
+"POT-Creation-Date: 2011-12-09 15:39+0100\n"
+"PO-Revision-Date: 2011-12-09 15:39+0100\n"
 "Last-Translator: Duckson <duckson@liberator>\n"
 "Language-Team: Mediashake Amsterdam\n"
 "MIME-Version: 1.0\n"
@@ -16,49 +16,73 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../classes/Site.class.php:82
+#: ../classes/Site.class.php:87
 msgid "Showcase"
 msgstr "Nieuw en noemenswaardig"
 
-#: ../classes/Site.class.php:83
+#: ../classes/Site.class.php:88
 msgid "People"
 msgstr "Mensen"
 
-#: ../classes/Site.class.php:97
+#: ../classes/Site.class.php:102
 msgid "Upload"
 msgstr "Uploaden"
 
-#: ../classes/Site.class.php:98
+#: ../classes/Site.class.php:103
 msgid "Profile"
 msgstr "Profiel"
 
-#: ../classes/Site.class.php:99
+#: ../classes/Site.class.php:104
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: ../classes/Site.class.php:106
+#: ../classes/Site.class.php:111
 msgid "Sign up"
 msgstr "Registreer"
 
-#: ../classes/Site.class.php:406
+#: ../classes/Site.class.php:425
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
 
-#: ../classes/Site.class.php:412
+#: ../classes/Site.class.php:431
 msgid "Forbidden"
 msgstr "Verboden"
 
-#: ../classes/Site.class.php:418
+#: ../classes/Site.class.php:437
 msgid "Internal server error"
 msgstr "Interne serverfout"
 
-#: ../classes/Site.class.php:424
+#: ../classes/Site.class.php:443
 msgid "Error"
 msgstr "Fout"
 
-#: ../classes/Site.class.php:453
+#: ../classes/Site.class.php:458
+msgid "English"
+msgstr "Engels"
+
+#: ../classes/Site.class.php:459
+msgid "Dutch"
+msgstr "Nederlands"
+
+#: ../classes/Site.class.php:460
+msgid "Norwegian Nynorsk"
+msgstr "Noors"
+
+#: ../classes/Site.class.php:461
+msgid "Slovak"
+msgstr "Slowaaks"
+
+#: ../classes/Site.class.php:462
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#: ../classes/Site.class.php:480
 msgid "Something is wrong with the template!"
 msgstr "Er is iets mis met het sjabloon!"
+
+#: ../html/languageform.html:14
+msgid "Apply"
+msgstr "Toepassen"
 
 #: ../html/loginform.html:2
 msgid "Username"

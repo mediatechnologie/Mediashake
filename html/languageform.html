@@ -1,0 +1,15 @@
+<form method="post">
+	<select name="lang">
+		<?php foreach($languages as $lang => $code):
+			$selected = null;
+			if(isset($_SESSION['language']) and $code == $_SESSION['language'])
+				$selected = ' selected';
+			elseif($code == DEFAULT_LOCALE)
+				$selected = ' selected';
+			
+			echo '<option value="'.$code.'"'.$selected.'>'.$lang.'</option>'; 
+		endforeach; ?>
+	</select>
+	
+	<input type="submit" value="<?php echo _('Apply'); ?>" />
+</form>

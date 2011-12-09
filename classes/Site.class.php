@@ -165,13 +165,13 @@ class Site
 			}
 			case 'people':
 			{
-				$uf = new UserFactory;
+				$uf = new UserFactory($this->db);
 				$this->view->assign('users', $uf->fetchAll());
 				break;
 			}
 			case 'user':
 			{
-				$uf = new UserFactory;
+				$uf = new UserFactory($this->db);
 				if(!isset($this->path[1]))
 					throw new Exception(404);
 				
@@ -454,6 +454,13 @@ class Site
 
 		$this->view->assign('page', $page);
 		$this->view->assign('pages', $this->pf->names());
+		$this->view->assign('languages', array(
+			_('English')	=> 'en_UK',
+			_('Dutch')		=> 'nl_NL',
+			_('Norwegian Nynorsk') => 'no_NN',
+			_('Slovak')		=> 'sk_SK',
+			_('Esperanto')	=> 'eo_EO'
+		));
 		
 		// Assign user data to the view
 		if(array_key_exists('user', $_SESSION))

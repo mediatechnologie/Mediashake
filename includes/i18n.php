@@ -6,8 +6,21 @@
 
 require('gettext.inc.php');
 
+if(isset($_POST['lang']))
+{
+	$locale = $_POST['lang'];
+	$_SESSION['language'] = $locale;
+}
+elseif(isset($_SESSION['language']))
+{
+	$locale = $_SESSION['language'];
+}
+else
+{
+	$locale = DEFAULT_LOCALE;
+}
+
 $domain = 'mediashake';
-$locale = (isset($_GET['lang']))? $_GET['lang'] : DEFAULT_LOCALE;
 $directory = './languages';
 
 // Set up gettext
