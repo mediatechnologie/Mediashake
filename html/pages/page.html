@@ -1,6 +1,8 @@
-<?php include('head.html'); ?>
+<?php
+include('head.html');
 
-<h1><?php echo $page['title']; ?></h1>
-<?php echo $page['content']; ?>
+echo '<h1>'.$page['title'].'</h1>';
+echo $page['content'];
 
-<?php include('foot.html'); ?>
+include('foot.html');
+?>

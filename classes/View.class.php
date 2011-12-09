@@ -21,7 +21,17 @@ class View
 	{
 		if(is_string($key) or is_int($key))
 		{
-			$this->data[ $key ] = $val;
+			if(is_array($val) and
+				array_key_exists($key, $this->data) and is_array($this->data[ $key ]))
+				$this->data[ $key ] = array_merge($this->getData($key), $val);
+			else
+				$this->data[ $key ] = $val;
+			
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 	

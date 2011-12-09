@@ -28,6 +28,8 @@ class Site
 	 */
 	protected $wf;
 	
+	protected $pf;
+	
 	protected $user;
 	
 	/**
@@ -63,7 +65,10 @@ class Site
 		// Set up some objects
 		$this->db = new Database;
 		$this->view = new MView;
-		$this->wf = new WorkFactory;
+		
+		$this->wf = new WorkFactory($this->db);
+		$this->pf = new PageFactory($this->db);
+		
 		$this->user = new User;
 		
 		// Determine which page should be served
@@ -169,6 +174,7 @@ class Site
 				$uf = new UserFactory;
 				if(!isset($this->path[1]))
 					throw new Exception(404);
+				
 				$this->view->assign('profile', $uf->fetch(array('username' => $this->path[1])));
 				break;
 			}
@@ -181,6 +187,19 @@ class Site
 				
 				$this->view->assign('popular', $popular_work);
 				$this->view->assign('schools', $this->getSchools());
+				break;
+			}
+			case 'page':
+			{				$p = $this->pf->fetch(array(
+					'slug' => $this->path[1],
+					'type' => 'array'
+				));
+				
+				if(empty($p))
+					throw new Exception(404);
+				
+				$this->view->assign('page', $p);
+				$this->view->setTitle($p['title']);
 				break;
 			}
 			case 'home':
@@ -434,6 +453,7 @@ class Site
 		$page['title'] = $this->view->getTitle();
 
 		$this->view->assign('page', $page);
+		$this->view->assign('pages', $this->pf->names());
 		
 		// Assign user data to the view
 		if(array_key_exists('user', $_SESSION))

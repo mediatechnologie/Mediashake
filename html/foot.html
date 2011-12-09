@@ -2,7 +2,10 @@
 	</section>
 	
 	<footer>
-		<p>2011, Mediashake</p>
+		<p>2011, Mediashake.</p>
+		<ul>
+			<?php foreach($pages as $p) echo '<li><a href="/page/'.$p['slug'].'">'._($p['title']).'</a></li>' ?>
+		</ul>
 	</footer>
 </body>
 </html>
