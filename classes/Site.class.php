@@ -456,9 +456,10 @@ class Site
 		$this->view->assign('pages', $this->pf->names());
 		$this->view->assign('languages', array(
 			_('English')	=> 'en_UK',
-			_('Dutch')		=> 'nl_NL',
 			_('Norwegian Nynorsk') => 'no_NN',
 			_('Slovak')		=> 'sk_SK',
+			_('Turkish')	=> 'tr_TR',
+			_('Dutch')		=> 'nl_NL',
 			_('Esperanto')	=> 'eo_EO'
 		));
 		

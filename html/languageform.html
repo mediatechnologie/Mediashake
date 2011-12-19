@@ -1,6 +1,7 @@
 <form method="post">
 	<select name="lang">
-		<?php foreach($languages as $lang => $code):
+		<?php // Languages are defined in Site.class.php
+		foreach($languages as $lang => $code):
 			$selected = null;
 			if(isset($_SESSION['language']) and $code == $_SESSION['language'])
 				$selected = ' selected';
