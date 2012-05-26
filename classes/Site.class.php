@@ -159,7 +159,10 @@ class Site
 			case 'landing':
 			case 'showcase':
 			{
-				$wk = $this->wf->fetchAll();
+				$wk = $this->wf->fetchAll(array(
+					'sort_by' => 'id',
+					'limit' => 60
+				));
 				$this->view->assign('work', $wk);
 				break;
 			}
@@ -205,7 +208,7 @@ class Site
 			case 'home':
 			{
 				$recent_work = $this->wf->fetchAll(array(
-					'sort_by' => 'date',
+					'sort_by' => 'id',
 					'limit' => 5
 				));
 				$popular_work = $this->wf->fetchAll(array(
