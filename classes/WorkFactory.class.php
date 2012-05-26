@@ -33,10 +33,12 @@ class WorkFactory implements Factory
 		
 		foreach($work->getArray() as $wprop => $wval)
 		{
-			if(in_array($wprop, $values))
-			{
-				$st->bindValue(':'.(string) $wprop, $wval);
-			}
+			if(!in_array($wprop, $values)) continue;
+			
+			if($wprop === 'title' or $wprop === 'description')
+				$wprop = htmlentities($wprop);
+			
+			$st->bindValue(':'.(string) $wprop, $wval);
 		}
 		
 		if($st->execute())
