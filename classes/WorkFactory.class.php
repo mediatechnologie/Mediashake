@@ -24,11 +24,12 @@ class WorkFactory implements Factory
 		if(!($work instanceof Work))
 			throw new Exception('Did not receive a valid Work object.');
 		
-		$sql = 'INSERT INTO work ( title, description, type, owner, school, filename )
-				VALUES ( :title, :description, :type, :owner, :school, :filename )';
+		$sql = 'INSERT INTO work ( date, title, description, type, owner, school, filename )
+				VALUES ( :date, :title, :description, :type, :owner, :school, :filename )';
 		$values = array('title', 'description', 'type', 'owner', 'school', 'filename');
 		
 		$st = $this->db->prepare($sql);
+		$st->bindValue(':date', date('Y-m-d H:i:s'));
 		
 		foreach($work->getArray() as $wprop => $wval)
 		{
