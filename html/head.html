@@ -25,7 +25,10 @@
 			<a href="/showcase">
 				<img src="/images/logo.png" alt="<?php echo $general['name']; ?> Logo" id="logo"/>
 			</a>			
-			<?php include('navigation.html');
+			<?php
+			include('navigation.html');
+			include('languageform.html');
+			
 			if(empty($_SESSION['user']))
 			{
 				include('loginform.html'); 
@@ -34,7 +37,7 @@
 			{
 				include('searchform.html');
 			}
-			include('languageform.html');
+			
 			?>
 		</div>
 	</header>

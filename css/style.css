@@ -69,7 +69,7 @@ a{
 			color: #666666;
 			font-size: 14px;
 			height: 60px;
-			min-width: 550px;
+			min-width: 300px;
 		}
 			
 			#header #navigation ol li{
@@ -116,9 +116,10 @@ a{
 								left: 0px;
 						}
 						
-		#header #search_form{
+		#header form{
 				float: right;
-				margin-top: 20px;
+				margin: 8px 0px;
+				clear: right;
 		}
 		
 				#header #search_form input[type='text']{
@@ -129,11 +130,6 @@ a{
 						box-shadow: 0 0 2px 1px #E8E8E8;
 						color: #888;
 				}
-		
-		#header #login_form{
-				float: right;
-				margin-top: 20px;
-		}
 		
 				#header #login_form input[type='text'], #header #login_form input[type='password']{
 						padding: 5px 10px 5px 10px;
